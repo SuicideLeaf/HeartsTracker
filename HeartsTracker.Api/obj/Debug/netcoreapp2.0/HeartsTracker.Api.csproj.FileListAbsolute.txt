@@ -1,0 +1,13 @@
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Api.deps.json
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Api.runtimeconfig.json
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Api.runtimeconfig.dev.json
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Api.dll
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Api.pdb
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.csprojResolveAssemblyReference.cache
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.csproj.CoreCompileInputs.cache
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.AssemblyInfoInputs.cache
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.AssemblyInfo.cs
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.dll
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\obj\Debug\netcoreapp2.0\HeartsTracker.Api.pdb
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Dal.dll
+C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Api\bin\Debug\netcoreapp2.0\HeartsTracker.Dal.pdb
