@@ -1,9 +1,0 @@
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\bin\Debug\netcoreapp2.0\HeartsTracker.Dal.deps.json
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\bin\Debug\netcoreapp2.0\HeartsTracker.Dal.dll
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\bin\Debug\netcoreapp2.0\HeartsTracker.Dal.pdb
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.csproj.CoreCompileInputs.cache
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.AssemblyInfoInputs.cache
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.AssemblyInfo.cs
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.dll
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.pdb
-C:\Projects\Desktop Workspace\HeartsTracker\HeartsTracker\HeartsTracker.Dal\obj\Debug\netcoreapp2.0\HeartsTracker.Dal.csprojResolveAssemblyReference.cache
