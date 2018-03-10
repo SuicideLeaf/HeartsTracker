@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HeartsTracker.Api.Controllers
 {
-	[Route( "api/[controller]" )]
-	public class PlayersController : Controller
+	public class PlayersController : BaseController
 	{
 		private readonly IPlayerRepository _playerRepository;
 
