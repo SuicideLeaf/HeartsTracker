@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="8dp">
+		<TextView
+			android:id="@+id/player_details_textview_playername"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			android:maxLines="2"
+			android:text="Player Name"
+			android:textScaleX="1.2"
+			android:textSize="36sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/player_details_textview_firstname"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.0"
+			app:layout_constraintVertical_chainStyle="packed" />
+		<TextView
+			android:id="@+id/player_details_textview_firstname"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginTop="8dp"
+			android:ellipsize="end"
+			android:maxLines="2"
+			android:text="First Name"
+			app:layout_constraintBottom_toTopOf="@+id/player_details_textview_lastname"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/player_details_textview_playername" />
+		<TextView
+			android:id="@+id/player_details_textview_lastname"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			android:maxLines="2"
+			android:text="Last Name"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/player_details_textview_firstname" />
+	</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

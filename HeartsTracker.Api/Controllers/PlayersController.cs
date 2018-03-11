@@ -1,5 +1,4 @@
 ﻿using HeartsTracker.Api.Models;
-using HeartsTracker.Dal.Entities;
 using HeartsTracker.Dal.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +15,15 @@ namespace HeartsTracker.Api.Controllers
 
 		// GET api/players
 		[HttpGet]
-		public PlayerList Get( )
+		public PlayerList GetAll( )
 		{
 			return new PlayerList( _playerRepository );
 		}
 
-		// GET api/players/5
-		[HttpGet( "{id}" )]
-		public PlayerDetails Get( int id )
+		// GET api/players/GetById?id=1
+		// GET api/players/1
+		[HttpGet( "GetById" )]
+		public PlayerDetails GetById( int id )
 		{
 			return PlayerDetails.Get( _playerRepository, id );
 		}

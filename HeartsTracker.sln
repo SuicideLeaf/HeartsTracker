@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Dal", "Hearts
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Api", "HeartsTracker.Api\HeartsTracker.Api.csproj", "{0946142C-B001-411E-A780-27A2DDE05FBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTrackerApps", "HeartsTrackerApps", "{7A766459-1203-4361-A391-42139F4479F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartsTracker.Android", "HeartsTracker.Android\HeartsTracker.Android.csproj", "{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Core", "HeartsTracker.Core\HeartsTracker.Core.csproj", "{F40C505B-A0C5-422F-B552-0356CA6CF320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,23 @@ Global
 		{0946142C-B001-411E-A780-27A2DDE05FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0946142C-B001-411E-A780-27A2DDE05FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0946142C-B001-411E-A780-27A2DDE05FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F40C505B-A0C5-422F-B552-0356CA6CF320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40C505B-A0C5-422F-B552-0356CA6CF320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40C505B-A0C5-422F-B552-0356CA6CF320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40C505B-A0C5-422F-B552-0356CA6CF320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9} = {7A766459-1203-4361-A391-42139F4479F6}
+		{F40C505B-A0C5-422F-B552-0356CA6CF320} = {7A766459-1203-4361-A391-42139F4479F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D35EEDA-7638-455F-B6D3-8D369D732484}
