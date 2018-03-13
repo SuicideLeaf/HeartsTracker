@@ -1,21 +1,19 @@
 ﻿using System;
-using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
-using HeartsTracker.Core.Models.Player;
+using HeartsTracker.Core.Models.Players;
 
 namespace HeartsTracker.Android.Adapters
 {
 	public class PlayersAdapter : RecyclerView.Adapter
 	{
-		private PlayerListViewModel _playerList;
+		private PlayerList _playerList;
 
 		public EventHandler<int> PlayerClicked { get; set; }
 
-		public PlayersAdapter( PlayerListViewModel playerList )
+		public PlayersAdapter( )
 		{
-			SetPlayers( playerList );
+			_playerList = new PlayerList( );
 		}
 
 		private Action<object, int> OnClick => ( obj, pos ) =>
@@ -28,7 +26,7 @@ namespace HeartsTracker.Android.Adapters
 		public override void OnBindViewHolder( RecyclerView.ViewHolder holder, int position )
 		{
 			PlayerListItemViewHolder vh = ( PlayerListItemViewHolder )holder;
-			PlayerListItemViewModel playerListItem = _playerList.Players[ position ];
+			PlayerListItem playerListItem = _playerList.Players[ position ];
 
 			vh.UpdateViews( playerListItem );
 		}
@@ -41,41 +39,20 @@ namespace HeartsTracker.Android.Adapters
 			return new PlayerListItemViewHolder( view, OnClick );
 		}
 
-		public PlayerListItemViewModel GetPlayer( int position )
+		public PlayerListItem GetPlayer( int position )
 		{
 			return _playerList.Players[ position ];
 		}
 
-		public void ReplaceData( PlayerListViewModel playerList )
+		public void ReplaceData( PlayerList playerList )
 		{
 			SetPlayers( playerList );
 			NotifyDataSetChanged( );
 		}
 
-		private void SetPlayers( PlayerListViewModel playerList )
+		private void SetPlayers( PlayerList playerList )
 		{
 			_playerList = playerList;
-		}
-	}
-
-	public class PlayerListItemViewHolder : RecyclerView.ViewHolder
-	{
-		private readonly TextView _playerName;
-		private readonly View _colourView;
-
-		public PlayerListItemViewHolder( View view, Action<object, int> onClick )
-			: base( view )
-		{
-			view.Click += ( s, e ) => { onClick( s, AdapterPosition ); };
-
-			_playerName = view.FindViewById<TextView>( Resource.Id.players_listitem_textview_name );
-			_colourView = view.FindViewById<View>( Resource.Id.players_listitem_view_colour );
-		}
-
-		public void UpdateViews( PlayerListItemViewModel playerListItem )
-		{
-			_colourView.SetBackgroundColor( Color.ParseColor( playerListItem.Colour ) );
-			_playerName.Text = playerListItem.PlayerName;
 		}
 	}
 }

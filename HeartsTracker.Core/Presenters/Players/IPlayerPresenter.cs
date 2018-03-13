@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace HeartsTracker.Core.Presenters.Interfaces
+namespace HeartsTracker.Core.Presenters.Players
 {
 	public interface IPlayerPresenter : IBasePresenter
 	{

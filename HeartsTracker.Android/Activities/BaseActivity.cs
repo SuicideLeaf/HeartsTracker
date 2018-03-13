@@ -16,7 +16,6 @@ namespace HeartsTracker.Android.Activities
 		public void SetPresenter( )
 		{
 			RegisterView( );
-			//App.Container.RegisterInstance<IRequestHandler>( new RequestHandler( this ) );
 
 			Presenter = App.Container.Resolve<TPresenter>( );
 		}

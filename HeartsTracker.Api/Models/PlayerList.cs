@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using HeartsTracker.Dal.Repositories.Interfaces;
 
 namespace HeartsTracker.Api.Models
 {
@@ -8,12 +6,9 @@ namespace HeartsTracker.Api.Models
 	{
 		public List<PlayerListItem> Players { get; set; }
 
-		public PlayerList( IPlayerRepository playerRepository )
+		public PlayerList( List<PlayerListItem> players )
 		{
-			Players = playerRepository
-				.GetAll( )
-				.Select( p => playerRepository.Mapper.Map<PlayerListItem>( p ) )
-				.ToList( );
+			Players = players;
 		}
 	}
 }

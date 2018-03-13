@@ -1,6 +1,6 @@
-﻿using HeartsTracker.Core.Classes;
+using HeartsTracker.Core.Classes;
 
-namespace HeartsTracker.Core.Callbacks.Interfaces
+namespace HeartsTracker.Core.Callbacks
 {
 	public interface IBaseCallback
 	{

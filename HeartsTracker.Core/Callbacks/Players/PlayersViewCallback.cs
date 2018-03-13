@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using HeartsTracker.Core.Callbacks.Interfaces;
-using HeartsTracker.Core.Classes;
-using HeartsTracker.Core.Models.Player;
-using HeartsTracker.Core.Views;
+﻿using HeartsTracker.Core.Classes;
+using HeartsTracker.Core.Models.Players;
+using HeartsTracker.Core.Views.Players;
 
-namespace HeartsTracker.Core.Callbacks
+namespace HeartsTracker.Core.Callbacks.Players
 {
 	public class PlayersViewCallback : IGetPlayersCallback
 	{
@@ -15,7 +13,7 @@ namespace HeartsTracker.Core.Callbacks
 			_playersView = playersView;
 		}
 
-		public void OnPlayersLoaded( PlayerListViewModel playerList )
+		public void OnPlayersLoaded( PlayerList playerList )
 		{
 			// The view may not be able to handle UI updates anymore
 			if ( !_playersView.IsActive )
@@ -37,7 +35,7 @@ namespace HeartsTracker.Core.Callbacks
 			_playersView.ShowLoadingError( dataError );
 		}
 
-		private void ProcessPlayers( PlayerListViewModel playerList )
+		private void ProcessPlayers( PlayerList playerList )
 		{
 			// Show the list of tasks
 			_playersView.ShowPlayers( playerList );

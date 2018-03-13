@@ -1,49 +1,58 @@
-﻿using HeartsTracker.Api.Models;
-using HeartsTracker.Dal.Repositories.Interfaces;
+﻿using HeartsTracker.Api.Services.Interfaces;
+using HeartsTracker.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeartsTracker.Api.Controllers
 {
 	public class PlayersController : BaseController
 	{
-		private readonly IPlayerRepository _playerRepository;
+		private readonly IPlayerService _playerService;
 
-		public PlayersController( IPlayerRepository playerRepository )
+		public PlayersController( IPlayerService playerService )
 		{
-			_playerRepository = playerRepository;
+			_playerService = playerService;
 		}
 
-		// GET api/players
-		[HttpGet]
-		public PlayerList GetAll( )
+		// GET api/players/all?isActive=false
+		[HttpGet( "All" )]
+		public PlayerList GetAll( bool? isActive = null )
 		{
-			return new PlayerList( _playerRepository );
+			return _playerService.GetList( isActive );
 		}
 
-		// GET api/players/GetById?id=1
-		// GET api/players/1
-		[HttpGet( "GetById" )]
-		public PlayerDetails GetById( int id )
+		// GET api/players/get?id=5
+		[HttpGet( "Get" )]
+		public PlayerDetails Get( int id )
 		{
-			return PlayerDetails.Get( _playerRepository, id );
+			return _playerService.GetDetails( id );
 		}
 
-		// POST api/players
-		[HttpPost]
-		public void Post( [FromBody]string value )
+		// POST api/players/create
+		[HttpPost( "Create" )]
+		public void Post( [FromBody]PlayerDetails playerDetails )
 		{
+			_playerService.Create( playerDetails );
 		}
 
-		// PUT api/players/5
-		[HttpPut( "{id}" )]
-		public void Put( int id, [FromBody]string value )
+		// PUT api/players/update?id=5
+		[HttpPut( "Update" )]
+		public void Update( int id, [FromBody]PlayerDetails playerDetails )
 		{
+			_playerService.UpdateDetails( playerDetails );
 		}
 
-		// DELETE api/players/5
-		[HttpDelete( "{id}" )]
-		public void Delete( int id )
+		// PUT api/players/archive?id=5
+		[HttpPut( "Archive" )]
+		public void Archive( int id )
 		{
+			_playerService.Archive( id );
+		}
+
+		// PUT api/players/unarchive?id=5
+		[HttpPut( "UnArchive" )]
+		public void UnArchive( int id )
+		{
+			_playerService.UnArchive( id );
 		}
 	}
 }

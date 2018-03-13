@@ -1,14 +1,12 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using HeartsTracker.Core.Callbacks.Interfaces;
+﻿using System.Threading.Tasks;
+using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.Classes;
-using HeartsTracker.Core.DataSources.Interfaces;
 using HeartsTracker.Core.Interfaces;
-using HeartsTracker.Core.Models.Player;
-using HeartsTracker.Core.QueryParameters;
+using HeartsTracker.Core.Models.Players;
+using HeartsTracker.Core.QueryParameters.Players;
 using Refit;
 
-namespace HeartsTracker.Core.DataSources
+namespace HeartsTracker.Core.DataSources.Players
 {
 	public class PlayerApiDataSource : IPlayerDataSource
 	{
@@ -23,9 +21,7 @@ namespace HeartsTracker.Core.DataSources
 		{
 			try
 			{
-				PlayerList response = await _api.GetPlayers( queryParams );
-
-				PlayerListViewModel playerList = new PlayerListViewModel( response );
+				PlayerList playerList = await _api.GetPlayers( queryParams );
 
 				callback.OnPlayersLoaded( playerList );
 			}
@@ -39,9 +35,7 @@ namespace HeartsTracker.Core.DataSources
 		{
 			try
 			{
-				Player response = await _api.GetPlayer( queryParams );
-
-				PlayerViewModel player = new PlayerViewModel( response );
+				Player player = await _api.GetPlayer( queryParams );
 
 				callback.OnPlayerLoaded( player );
 			}

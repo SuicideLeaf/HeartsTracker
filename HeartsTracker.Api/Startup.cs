@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using HeartsTracker.Api.Services;
+using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.Classes;
 using HeartsTracker.Dal.Contexts;
 using HeartsTracker.Dal.Entities;
@@ -30,8 +32,8 @@ namespace HeartsTracker.Api
 			services.AddAutoMapper( );
 			services.AddMvc( );
 
-			services.AddScoped<IPlayerRepository, PlayerRepository>( );
-
+			InjectServices( services );
+			InjectRepositories( services );
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +45,16 @@ namespace HeartsTracker.Api
 			} );
 
 			DbInitializer.Initialize( context );
+		}
+
+		private static void InjectServices( IServiceCollection services )
+		{
+			services.AddScoped<IPlayerService, PlayerService>( );
+		}
+
+		private static void InjectRepositories( IServiceCollection services )
+		{
+			services.AddScoped<IPlayerRepository, PlayerRepository>( );
 		}
 	}
 }

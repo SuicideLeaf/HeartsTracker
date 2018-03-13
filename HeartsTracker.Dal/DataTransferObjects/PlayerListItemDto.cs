@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HeartsTracker.Dal.DataTransferObjects
+﻿namespace HeartsTracker.Dal.DataTransferObjects
 {
-    public class PlayerListItemDto
-    {
+	public class PlayerListItemDto
+	{
 		public int Id { get; set; }
 		public string PlayerName { get; set; }
 		public string Colour { get; set; }
+		public bool IsActive { get; set; }
 	}
 }

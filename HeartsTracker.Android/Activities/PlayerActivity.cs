@@ -4,10 +4,10 @@ using Android.Support.V4.Widget;
 using Android.Widget;
 using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
-using HeartsTracker.Core.Models.Player;
-using HeartsTracker.Core.Presenters;
-using HeartsTracker.Core.QueryParameters;
-using HeartsTracker.Core.Views;
+using HeartsTracker.Core.Models.Players;
+using HeartsTracker.Core.Presenters.Players;
+using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.Views.Players;
 using Unity;
 
 namespace HeartsTracker.Android.Activities
@@ -88,7 +88,7 @@ namespace HeartsTracker.Android.Activities
 			//
 		}
 
-		public void ShowPlayer( PlayerViewModel player )
+		public void ShowPlayer( Player player )
 		{
 			_playerNameTextView.Text = player.PlayerName;
 			_firstNameTextView.Text = player.FirstName;

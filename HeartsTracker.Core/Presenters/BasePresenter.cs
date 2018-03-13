@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Presenters.Interfaces;
 using HeartsTracker.Core.Views;
 
 namespace HeartsTracker.Core.Presenters

@@ -13,11 +13,17 @@ namespace HeartsTracker.Dal.Repositories
 		public PlayerRepository( HeartsTrackerContext context, IMapper mapper ) : base( context, mapper )
 		{ }
 
-		public new PlayerDetailsDto Get( int id )
-			=> Mapper.Map<PlayerDetailsDto>( base.Get( id ) );
+		public PlayerDetailsDto GetPlayerDetails( int id )
+			=> Mapper.Map<PlayerDetailsDto>( Get( id ) );
 
-		public new List<PlayerListItemDto> GetAll( )
-			=> base.GetAll( )
+		public List<PlayerListItemDto> GetAllPlayers( )
+			=> GetAll( )
+				.Select( p => Mapper.Map<PlayerListItemDto>( p ) )
+				.ToList( );
+
+		public List<PlayerListItemDto> GetPlayersByActive( bool isActive )
+			=> GetAll( )
+				.Where( p => p.IsActive == isActive )
 				.Select( p => Mapper.Map<PlayerListItemDto>( p ) )
 				.ToList( );
 	}

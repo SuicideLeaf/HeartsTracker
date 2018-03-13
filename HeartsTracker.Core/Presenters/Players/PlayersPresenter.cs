@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Callbacks.Interfaces;
-using HeartsTracker.Core.DataSources.Interfaces;
-using HeartsTracker.Core.Presenters.Interfaces;
-using HeartsTracker.Core.Views;
+using HeartsTracker.Core.Callbacks.Players;
+using HeartsTracker.Core.DataSources.Players;
+using HeartsTracker.Core.Views.Players;
 
-namespace HeartsTracker.Core.Presenters
+namespace HeartsTracker.Core.Presenters.Players
 {
 	public class PlayersPresenter : BasePresenter<IPlayersView>, IPlayersPresenter
 	{

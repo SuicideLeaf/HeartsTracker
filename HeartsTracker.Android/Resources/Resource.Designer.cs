@@ -3372,7 +3372,7 @@ namespace HeartsTracker.Android
 			public const int abc_toolbar_collapse_description = 2131230738;
 			
 			// aapt resource value: 0x7f080029
-			public const int app_name = 2131230761;
+			public const int app_name5 = 2131230761;
 			
 			// aapt resource value: 0x7f080021
 			public const int appbar_scrolling_view_behavior = 2131230753;

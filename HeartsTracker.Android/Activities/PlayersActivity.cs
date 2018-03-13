@@ -9,10 +9,10 @@ using Android.Widget;
 using HeartsTracker.Android.Adapters;
 using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
-using HeartsTracker.Core.Models.Player;
-using HeartsTracker.Core.Presenters;
-using HeartsTracker.Core.QueryParameters;
-using HeartsTracker.Core.Views;
+using HeartsTracker.Core.Models.Players;
+using HeartsTracker.Core.Presenters.Players;
+using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.Views.Players;
 using Unity;
 
 namespace HeartsTracker.Android.Activities
@@ -62,10 +62,10 @@ namespace HeartsTracker.Android.Activities
 
 		private void SetupViews( )
 		{
-			_playersAdapter = new PlayersAdapter( new PlayerListViewModel( ) );
+			_playersAdapter = new PlayersAdapter( );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
 			{
-				PlayerListItemViewModel playerListItem = _playersAdapter.GetPlayer( pos );
+				PlayerListItem playerListItem = _playersAdapter.GetPlayer( pos );
 				LoadPlayerDetailsScreen( playerListItem.Id );
 			};
 			_recyclerView.SetLayoutManager( new LinearLayoutManager( this ) );
@@ -81,7 +81,7 @@ namespace HeartsTracker.Android.Activities
 
 		public bool IsActive => true;
 
-		public void ShowPlayers( PlayerListViewModel playerList )
+		public void ShowPlayers( PlayerList playerList )
 		{
 			_playersAdapter.ReplaceData( playerList );
 			ToggleRefreshing( false );

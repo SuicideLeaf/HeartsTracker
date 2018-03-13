@@ -7,5 +7,6 @@
 		public string LastName { get; set; }
 		public string PlayerName { get; set; }
 		public string Colour { get; set; }
+		public bool IsActive { get; set; }
 	}
 }

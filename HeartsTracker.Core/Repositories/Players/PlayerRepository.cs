@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Callbacks.Interfaces;
-using HeartsTracker.Core.DataSources.Interfaces;
-using HeartsTracker.Core.QueryParameters;
+using HeartsTracker.Core.Callbacks.Players;
+using HeartsTracker.Core.DataSources.Players;
+using HeartsTracker.Core.QueryParameters.Players;
 
-namespace HeartsTracker.Core.Repositories
+namespace HeartsTracker.Core.Repositories.Players
 {
 	public class PlayerRepository : IPlayerDataSource
 	{
