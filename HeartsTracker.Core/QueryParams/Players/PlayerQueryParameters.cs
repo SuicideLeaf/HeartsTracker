@@ -1,6 +1,6 @@
 ﻿using Refit;
 
-namespace HeartsTracker.Core.QueryParameters.Players
+namespace HeartsTracker.Core.QueryParams.Players
 {
 	public class PlayerQueryParameters : QueryParameters
 	{

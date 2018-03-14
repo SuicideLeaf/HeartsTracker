@@ -1,4 +1,4 @@
-﻿namespace HeartsTracker.Api.Models
+﻿namespace HeartsTracker.Api.Models.Players
 {
 	public class PlayerListItem
 	{

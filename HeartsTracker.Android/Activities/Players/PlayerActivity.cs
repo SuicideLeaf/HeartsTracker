@@ -6,11 +6,11 @@ using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
-using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.QueryParams.Players;
 using HeartsTracker.Core.Views.Players;
 using Unity;
 
-namespace HeartsTracker.Android.Activities
+namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Player Details" )]
 	public class PlayerActivity : BaseApiActivity<PlayerPresenter, PlayerQueryParameters>, IPlayerView
@@ -48,7 +48,7 @@ namespace HeartsTracker.Android.Activities
 			await Presenter.Start( );
 		}
 
-		private void FindViews( )
+		public override void FindViews( )
 		{
 			_playerNameTextView = FindViewById<TextView>( Resource.Id.player_details_textview_playername );
 			_firstNameTextView = FindViewById<TextView>( Resource.Id.player_details_textview_firstname );
@@ -56,7 +56,7 @@ namespace HeartsTracker.Android.Activities
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		private void SetupViews( )
+		public override void SetupViews( )
 		{
 			_swipeRefreshLayout.Refresh += async ( sender, e ) =>
 			{
@@ -65,8 +65,6 @@ namespace HeartsTracker.Android.Activities
 
 			SetPresenter( );
 		}
-
-		public bool IsActive => true;
 
 		public void ToggleRefreshing( bool active )
 		{
@@ -99,7 +97,7 @@ namespace HeartsTracker.Android.Activities
 			ToggleLoadingOverlay( false );
 		}
 
-		public override void ShowLoadingError( Enums.DataError error )
+		public override void ShowDataError( Enums.DataError error )
 		{
 			ToggleRefreshing( false );
 			ToggleLoadingOverlay( false );

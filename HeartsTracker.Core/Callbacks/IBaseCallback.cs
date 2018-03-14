@@ -4,6 +4,6 @@ namespace HeartsTracker.Core.Callbacks
 {
 	public interface IBaseCallback
 	{
-		void OnDataNotAvailable( Enums.DataError dataError );
+		void OnDataError( Enums.DataError dataError );
 	}
 }

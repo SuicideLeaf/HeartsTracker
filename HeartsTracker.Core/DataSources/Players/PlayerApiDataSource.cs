@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Interfaces;
 using HeartsTracker.Core.Models.Players;
-using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.Models.Players.Requests;
+using HeartsTracker.Core.QueryParams;
+using HeartsTracker.Core.QueryParams.Players;
 using Refit;
 
 namespace HeartsTracker.Core.DataSources.Players
@@ -23,11 +26,13 @@ namespace HeartsTracker.Core.DataSources.Players
 			{
 				PlayerList playerList = await _api.GetPlayers( queryParams );
 
+				playerList.SortPlayers( );
+
 				callback.OnPlayersLoaded( playerList );
 			}
 			catch ( ApiException e )
 			{
-				callback.OnDataNotAvailable( e.StatusCode.ToDataError( ) );
+				callback.OnDataError( e.StatusCode.ToDataError( ) );
 			}
 		}
 
@@ -41,7 +46,21 @@ namespace HeartsTracker.Core.DataSources.Players
 			}
 			catch ( ApiException e )
 			{
-				callback.OnDataNotAvailable( e.StatusCode.ToDataError( ) );
+				callback.OnDataError( e.StatusCode.ToDataError( ) );
+			}
+		}
+
+		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback, QueryParameters queryParams )
+		{
+			try
+			{
+				PlayerListItem playerListItem = await _api.CreatePlayer( player, queryParams );
+
+				callback.OnPlayerAdded( playerListItem );
+			}
+			catch ( ApiException e )
+			{
+				callback.OnDataError( e.StatusCode.ToDataError( ) );
 			}
 		}
 	}

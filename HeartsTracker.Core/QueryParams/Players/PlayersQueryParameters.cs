@@ -1,4 +1,4 @@
-﻿namespace HeartsTracker.Core.QueryParameters.Players
+﻿namespace HeartsTracker.Core.QueryParams.Players
 {
 	public class PlayersQueryParameters : QueryParameters
 	{

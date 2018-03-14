@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.DataSources.Players;
-using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.Models.Players.Requests;
+using HeartsTracker.Core.QueryParams;
+using HeartsTracker.Core.QueryParams.Players;
 
 namespace HeartsTracker.Core.Repositories.Players
 {
@@ -22,6 +24,11 @@ namespace HeartsTracker.Core.Repositories.Players
 		public async Task GetPlayers( IGetPlayersCallback callback, PlayersQueryParameters queryParams )
 		{
 			await _playersApiDataSource.GetPlayers( callback, queryParams );
+		}
+
+		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback, QueryParameters queryParams )
+		{
+			await _playersApiDataSource.AddPlayer( player, callback, queryParams );
 		}
 	}
 }

@@ -151,11 +151,12 @@
   <ItemGroup>
     <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Activities\BaseApiActivity.cs" />
-    <Compile Include="Activities\PlayersActivity.cs" />
+    <Compile Include="Activities\Players\AddPlayerActivity.cs" />
+    <Compile Include="Activities\Players\PlayersActivity.cs" />
     <Compile Include="Adapters\PlayerListItemViewHolder.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Classes\App.cs" />
-    <Compile Include="Activities\PlayerActivity.cs" />
+    <Compile Include="Activities\Players\PlayerActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
   </ItemGroup>
@@ -172,6 +173,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\player_activity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\addplayer_activity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

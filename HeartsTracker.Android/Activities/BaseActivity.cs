@@ -13,6 +13,10 @@ namespace HeartsTracker.Android.Activities
 
 		public abstract void RegisterView( );
 
+		public abstract void FindViews( );
+
+		public abstract void SetupViews( );
+
 		public void SetPresenter( )
 		{
 			RegisterView( );

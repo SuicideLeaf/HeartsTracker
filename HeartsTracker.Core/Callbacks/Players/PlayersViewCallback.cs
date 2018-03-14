@@ -15,24 +15,12 @@ namespace HeartsTracker.Core.Callbacks.Players
 
 		public void OnPlayersLoaded( PlayerList playerList )
 		{
-			// The view may not be able to handle UI updates anymore
-			if ( !_playersView.IsActive )
-			{
-				return;
-			}
-
 			ProcessPlayers( playerList );
 		}
 
-		public void OnDataNotAvailable( Enums.DataError dataError )
+		public void OnDataError( Enums.DataError dataError )
 		{
-			// The view may not be able to handle UI updates anymore
-			if ( !_playersView.IsActive )
-			{
-				return;
-			}
-
-			_playersView.ShowLoadingError( dataError );
+			_playersView.ShowDataError( dataError );
 		}
 
 		private void ProcessPlayers( PlayerList playerList )

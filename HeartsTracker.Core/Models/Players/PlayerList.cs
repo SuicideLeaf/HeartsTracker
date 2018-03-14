@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Net.Http.Headers;
 
 namespace HeartsTracker.Core.Models.Players
 {
@@ -9,6 +11,11 @@ namespace HeartsTracker.Core.Models.Players
 		public PlayerList( )
 		{
 			Players = new List<PlayerListItem>( );
+		}
+
+		public void SortPlayers( )
+		{
+			Players = Players.OrderBy( p => p.PlayerName ).ToList( );
 		}
 	}
 }

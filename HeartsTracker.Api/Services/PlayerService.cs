@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using HeartsTracker.Api.Models;
+using HeartsTracker.Api.Models.Players;
+using HeartsTracker.Api.Models.Players.Requests;
 using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.DataTransferObjects;
 using HeartsTracker.Dal.Entities;
 using HeartsTracker.Dal.Repositories.Interfaces;
+using PlayerDetails = HeartsTracker.Api.Models.Players.PlayerDetails;
 
 namespace HeartsTracker.Api.Services
 {
@@ -53,19 +55,23 @@ namespace HeartsTracker.Api.Services
 			return _mapper.Map<PlayerDetails>( playerDetailsDto );
 		}
 
-		public void Create( PlayerDetails playerDetails )
+		public PlayerListItem Create( AddPlayerRequest playerRequest )
 		{
 			Player player = new Player
 			{
-				PlayerName = playerDetails.PlayerName,
-				FirstName = playerDetails.FirstName,
-				LastName = playerDetails.LastName,
-				Colour = playerDetails.Colour,
+				PlayerName = playerRequest.PlayerName,
+				FirstName = playerRequest.FirstName,
+				LastName = playerRequest.LastName,
+				Colour = playerRequest.Colour,
 				IsActive = true
 			};
 
 			_playerRepository.Add( player );
 			_playerRepository.SaveChanges( );
+
+			PlayerListItemDto playerListItemDto = _mapper.Map<PlayerListItemDto>( player );
+
+			return _mapper.Map<PlayerListItem>( playerListItemDto );
 		}
 
 		public void UpdateDetails( PlayerDetails playerDetails )

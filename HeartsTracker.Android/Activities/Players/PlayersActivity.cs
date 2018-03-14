@@ -1,7 +1,9 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.Constraints;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -11,20 +13,24 @@ using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
-using HeartsTracker.Core.QueryParameters.Players;
+using HeartsTracker.Core.QueryParams.Players;
 using HeartsTracker.Core.Views.Players;
+using Newtonsoft.Json;
 using Unity;
 
-namespace HeartsTracker.Android.Activities
+namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Players", MainLauncher = true )]
 	public class PlayersActivity : BaseApiActivity<PlayersPresenter, PlayersQueryParameters>, IPlayersView
 	{
+		private const int AddPlayerRequestCode = 1;
+
 		private PlayersAdapter _playersAdapter;
 		private RecyclerView _recyclerView;
 		private ConstraintLayout _playersView;
 		private ConstraintLayout _noPlayersView;
 		private TextView _noPlayersTextView;
+		private FloatingActionButton _fabAddPlayer;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
 		public override void RegisterView( )
@@ -51,16 +57,27 @@ namespace HeartsTracker.Android.Activities
 			await Presenter.Start( );
 		}
 
-		private void FindViews( )
+		protected override void OnActivityResult( int requestCode, Result resultCode, Intent data )
+		{
+			if ( requestCode == AddPlayerRequestCode && resultCode == Result.Ok )
+			{
+				string jsonPlayerListItemData = data.GetStringExtra( "PlayerListItem" );
+				PlayerListItem playerListItem = JsonConvert.DeserializeObject<PlayerListItem>( jsonPlayerListItemData );
+				_playersAdapter.AddPlayerToList( playerListItem );
+			}
+		}
+
+		public override void FindViews( )
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
 			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
 			_noPlayersView = FindViewById<ConstraintLayout>( Resource.Id.players_none_rootlayout );
 			_noPlayersTextView = FindViewById<TextView>( Resource.Id.players_none_textview );
+			_fabAddPlayer = FindViewById<FloatingActionButton>( Resource.Id.players_fab_addplayer );
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		private void SetupViews( )
+		public override void SetupViews( )
 		{
 			_playersAdapter = new PlayersAdapter( );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
@@ -76,10 +93,31 @@ namespace HeartsTracker.Android.Activities
 				await Presenter.LoadPlayers( true );
 			};
 
+			_fabAddPlayer.Click += FabAddPlayerOnClick;
+
 			SetPresenter( );
 		}
 
-		public bool IsActive => true;
+		private void FabAddPlayerOnClick( object sender, EventArgs eventArgs )
+		{
+			Intent intent = new Intent( this, typeof( AddPlayerActivity ) );
+			StartActivityForResult( intent, AddPlayerRequestCode );
+		}
+
+		public override void ShowDataError( Enums.DataError error )
+		{
+			ToggleRefreshing( false );
+			ToggleLoadingOverlay( false );
+			switch ( error )
+			{
+				case Enums.DataError.NotFound:
+					ToggleRetryOverlay( true, "No players found... Tap to retry" );
+					break;
+				default:
+					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
+					break;
+			}
+		}
 
 		public void ShowPlayers( PlayerList playerList )
 		{
@@ -120,21 +158,6 @@ namespace HeartsTracker.Android.Activities
 			Intent intent = new Intent( this, typeof( PlayerActivity ) );
 			intent.PutExtra( "PlayerId", playerId );
 			StartActivity( intent );
-		}
-
-		public override void ShowLoadingError( Enums.DataError error )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( false );
-			switch ( error )
-			{
-				case Enums.DataError.NotFound:
-					ToggleRetryOverlay( true, "No players found... Tap to retry" );
-					break;
-				default:
-					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
-					break;
-			}
 		}
 	}
 }

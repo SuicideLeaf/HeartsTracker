@@ -1,5 +1,7 @@
 ﻿using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Api.Models;
+using HeartsTracker.Api.Models.Players;
+using HeartsTracker.Api.Models.Players.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeartsTracker.Api.Controllers
@@ -29,9 +31,9 @@ namespace HeartsTracker.Api.Controllers
 
 		// POST api/players/create
 		[HttpPost( "Create" )]
-		public void Post( [FromBody]PlayerDetails playerDetails )
+		public PlayerListItem Post( [FromBody]AddPlayerRequest playerRequest )
 		{
-			_playerService.Create( playerDetails );
+			return _playerService.Create( playerRequest );
 		}
 
 		// PUT api/players/update?id=5

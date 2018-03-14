@@ -50,6 +50,13 @@ namespace HeartsTracker.Android.Adapters
 			NotifyDataSetChanged( );
 		}
 
+		public void AddPlayerToList( PlayerListItem playerListItem )
+		{
+			_playerList.Players.Add( playerListItem );
+			_playerList.SortPlayers( );
+			NotifyDataSetChanged( );
+		}
+
 		private void SetPlayers( PlayerList playerList )
 		{
 			_playerList = playerList;

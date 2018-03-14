@@ -4,9 +4,9 @@ using HeartsTracker.Dal.Entities;
 
 namespace HeartsTracker.Dal.Classes
 {
-	public class DtoMappingProfile : Profile
+	public class EntityToDtoMappingProfile : Profile
 	{
-		public DtoMappingProfile( )
+		public EntityToDtoMappingProfile( )
 		{
 			CreateMap<Player, PlayerListItemDto>( );
 		}

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HeartsTracker.Api.Models
+namespace HeartsTracker.Api.Models.Players
 {
 	public class PlayerList
 	{

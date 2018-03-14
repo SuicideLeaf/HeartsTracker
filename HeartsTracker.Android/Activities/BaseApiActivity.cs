@@ -1,7 +1,7 @@
 ﻿using Android.OS;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Presenters;
-using HeartsTracker.Core.QueryParameters;
+using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.Views;
 
 namespace HeartsTracker.Android.Activities
@@ -24,7 +24,7 @@ namespace HeartsTracker.Android.Activities
 			SetupQueryParameters( );
 		}
 
-		public abstract void ShowLoadingError( Enums.DataError error );
+		public abstract void ShowDataError( Enums.DataError error );
 
 		private void SetupQueryParameters( )
 		{
