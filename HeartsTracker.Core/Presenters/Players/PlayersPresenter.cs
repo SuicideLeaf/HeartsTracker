@@ -29,7 +29,7 @@ namespace HeartsTracker.Core.Presenters.Players
 				View.ShowLoadingOverlay( );
 			}
 
-			await _playerRepository.GetPlayers( _playersViewCallback, View.QueryParameters );
+			await _playerRepository.GetPlayers( _playersViewCallback );
 		}
 
 		public override async Task Start( )

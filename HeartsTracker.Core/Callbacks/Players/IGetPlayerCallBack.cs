@@ -4,6 +4,6 @@ namespace HeartsTracker.Core.Callbacks.Players
 {
 	public interface IGetPlayerCallback : IBaseCallback
 	{
-		void OnPlayerLoaded( Player player );
+		void OnPlayerLoaded( PlayerViewModel player );
 	}
 }

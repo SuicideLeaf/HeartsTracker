@@ -21,8 +21,8 @@ namespace HeartsTracker.Dal.Repositories
 		protected BaseRepository( HeartsTrackerContext context, IMapper mapper )
 		{
 			Mapper = mapper;
-			Context = context;
 			DbSet = context.Set<TEntity>( );
+			Context = context;
 		}
 
 		public IQueryable<TEntity> GetAll( )

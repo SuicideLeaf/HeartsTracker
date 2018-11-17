@@ -1,34 +1,30 @@
-﻿using Android.OS;
+﻿using Android.Support.V7.App;
+using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Presenters;
-using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.Views;
+using Unity;
 
 namespace HeartsTracker.Android.Activities
 {
-	public abstract class BaseApiActivity<TPresenter, TParams> : BaseActivity<TPresenter>, IApiView<TParams>
+	public abstract class BaseApiActivity<TPresenter> : AppCompatActivity, IBaseView
 		where TPresenter : BasePresenter
-		where TParams : QueryParameters
 	{
-		public TParams QueryParameters { get; set; }
+		public TPresenter Presenter { get; set; }
 
-		public override void RegisterView( )
-		{
-			// Not needed, this will be registered further up the chain.
-		}
+		public abstract void RegisterView( );
 
-		protected override void OnCreate( Bundle savedInstanceState )
-		{
-			base.OnCreate( savedInstanceState );
+		public abstract void FindViews( );
 
-			SetupQueryParameters( );
-		}
+		public abstract void SetupViews( );
 
 		public abstract void ShowDataError( Enums.DataError error );
 
-		private void SetupQueryParameters( )
+		public void SetPresenter( )
 		{
-			// Todo authentication params
+			RegisterView( );
+
+			Presenter = App.Container.Resolve<TPresenter>( );
 		}
 	}
 }

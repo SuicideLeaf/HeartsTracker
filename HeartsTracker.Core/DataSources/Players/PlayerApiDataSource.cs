@@ -1,17 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HeartsTracker.Core.Callbacks.Players;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Interfaces;
 using HeartsTracker.Core.Models.Players;
-using HeartsTracker.Core.Models.Players.Requests;
 using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.QueryParams.Players;
-using Refit;
+using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Core.DataSources.Players
 {
-	public class PlayerApiDataSource : IPlayerDataSource
+	public class PlayerApiDataSource : BaseApiDataSource, IPlayerDataSource
 	{
 		private readonly IApi _api;
 
@@ -20,48 +17,36 @@ namespace HeartsTracker.Core.DataSources.Players
 			_api = api;
 		}
 
-		public async Task GetPlayers( IGetPlayersCallback callback, PlayersQueryParameters queryParams )
+		public async Task GetPlayers( IGetPlayersCallback callback )
 		{
-			try
-			{
-				PlayerList playerList = await _api.GetPlayers( queryParams );
+			PlayersQueryParameters queryParams = new PlayersQueryParameters( true );
 
-				playerList.SortPlayers( );
+			ResponseWrapper<PlayerListResponse> response = await SafeCallApi( ( ) => _api.GetPlayers( queryParams ) );
 
-				callback.OnPlayersLoaded( playerList );
-			}
-			catch ( ApiException e )
+			HandleResponse( response, ( ) =>
 			{
-				callback.OnDataError( e.StatusCode.ToDataError( ) );
-			}
+				PlayerListViewModel playerListViewModel = new PlayerListViewModel( response.Content );
+				playerListViewModel.SortByNameAsc( );
+				callback.OnPlayersLoaded( playerListViewModel );
+			}, callback );
 		}
 
-		public async Task GetPlayer( IGetPlayerCallback callback, PlayerQueryParameters queryParams )
+		public async Task GetPlayer( IGetPlayerCallback callback, int playerId )
 		{
-			try
-			{
-				Player player = await _api.GetPlayer( queryParams );
+			QueryParameters queryParams = new QueryParameters( );
 
-				callback.OnPlayerLoaded( player );
-			}
-			catch ( ApiException e )
-			{
-				callback.OnDataError( e.StatusCode.ToDataError( ) );
-			}
+			ResponseWrapper<UpdatePlayerRequest> response = await SafeCallApi( ( ) => _api.GetPlayer( playerId, queryParams ) );
+
+			HandleResponse( response, ( ) => { callback.OnPlayerLoaded( new PlayerViewModel( response.Content ) ); }, callback );
 		}
 
-		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback, QueryParameters queryParams )
+		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback )
 		{
-			try
-			{
-				PlayerListItem playerListItem = await _api.CreatePlayer( player, queryParams );
+			QueryParameters queryParams = new QueryParameters( );
 
-				callback.OnPlayerAdded( playerListItem );
-			}
-			catch ( ApiException e )
-			{
-				callback.OnDataError( e.StatusCode.ToDataError( ) );
-			}
+			ResponseWrapper<PlayerListItemResponse> response = await SafeCallApi( ( ) => _api.CreatePlayer( player, queryParams ) );
+
+			HandleResponse( response, ( ) => { callback.OnPlayerAdded( new PlayerListItemViewModel( response.Content ) ); }, callback );
 		}
 	}
 }

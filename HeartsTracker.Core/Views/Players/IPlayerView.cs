@@ -1,14 +1,14 @@
 using HeartsTracker.Core.Models.Players;
-using HeartsTracker.Core.QueryParams.Players;
 
 namespace HeartsTracker.Core.Views.Players
 {
-	public interface IPlayerView : IApiView<PlayerQueryParameters>
+	public interface IPlayerView : IBaseView
 	{
+		int PlayerId { get; set; }
 		void ToggleRefreshing( bool active );
 		void ToggleLoadingOverlay( bool active );
 		void ToggleRetryOverlay( bool active, string message = "" );
 		void ShowLoadingOverlay( );
-		void ShowPlayer( Player player );
+		void ShowPlayer( PlayerViewModel player );
 	}
 }

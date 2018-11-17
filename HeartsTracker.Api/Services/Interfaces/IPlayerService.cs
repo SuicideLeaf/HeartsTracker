@@ -1,16 +1,14 @@
-﻿using HeartsTracker.Api.Models;
-using HeartsTracker.Api.Models.Players;
-using HeartsTracker.Api.Models.Players.Requests;
+﻿using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Api.Services.Interfaces
 {
 	public interface IPlayerService
 	{
-		PlayerDetails GetDetails( int playerId );
-		PlayerList GetList( );
-		PlayerList GetList( bool? isActive );
-		PlayerListItem Create( AddPlayerRequest playerRequest );
-		void UpdateDetails( PlayerDetails playerDetails );
+		PlayerResponse GetDetails( int playerId );
+		PlayerListResponse GetList( );
+		PlayerListResponse GetList( bool? isActive );
+		PlayerListItemResponse Create( AddPlayerRequest playerRequest );
+		void Update( UpdatePlayerRequest playerDetails );
 		void Archive( int playerId );
 		void UnArchive( int playerId );
 	}

@@ -1,4 +1,4 @@
-﻿namespace HeartsTracker.Core.Models.Players.Requests
+﻿namespace HeartsTracker.Shared.Models.Player.Requests
 {
 	public class AddPlayerRequest
 	{

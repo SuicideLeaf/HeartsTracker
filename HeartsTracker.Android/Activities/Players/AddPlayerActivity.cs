@@ -8,7 +8,6 @@ using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
-using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.Views.Players;
 using Newtonsoft.Json;
 using Unity;
@@ -16,7 +15,7 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Add Player" )]
-	public class AddPlayerActivity : BaseApiActivity<AddPlayerPresenter, QueryParameters>, IAddPlayerView
+	public class AddPlayerActivity : BaseApiActivity<AddPlayerPresenter>, IAddPlayerView
 	{
 		private EditText _playerNameEditText;
 		private EditText _firstNameEditText;
@@ -84,7 +83,7 @@ namespace HeartsTracker.Android.Activities.Players
 			_addButton.Enabled = true;
 		}
 
-		public void FinishActivity( PlayerListItem playerListItem )
+		public void FinishActivity( PlayerListItemViewModel playerListItem )
 		{
 			Intent intent = new Intent( );
 			intent.PutExtra( "PlayerListItem", JsonConvert.SerializeObject( playerListItem ) );

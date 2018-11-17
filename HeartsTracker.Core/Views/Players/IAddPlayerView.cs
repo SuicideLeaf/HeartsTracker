@@ -1,9 +1,8 @@
 ﻿using HeartsTracker.Core.Models.Players;
-using HeartsTracker.Core.QueryParams;
 
 namespace HeartsTracker.Core.Views.Players
 {
-	public interface IAddPlayerView : IApiView<QueryParameters>
+	public interface IAddPlayerView : IBaseView
 	{
 		string PlayerName { get; }
 		string LastName { get; }
@@ -11,6 +10,6 @@ namespace HeartsTracker.Core.Views.Players
 		string Colour { get; }
 		void DisableSubmitButton( );
 		void EnableSubmitButton( );
-		void FinishActivity( PlayerListItem playerListItem );
+		void FinishActivity( PlayerListItemViewModel playerListItem );
 	}
 }

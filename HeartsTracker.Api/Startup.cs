@@ -3,8 +3,6 @@ using HeartsTracker.Api.Services;
 using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.Classes;
 using HeartsTracker.Dal.Contexts;
-using HeartsTracker.Dal.Entities;
-using HeartsTracker.Dal.Entities.Interfaces;
 using HeartsTracker.Dal.Repositories;
 using HeartsTracker.Dal.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;

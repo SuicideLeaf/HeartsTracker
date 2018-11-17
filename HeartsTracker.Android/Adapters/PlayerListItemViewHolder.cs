@@ -21,7 +21,7 @@ namespace HeartsTracker.Android.Adapters
 			_colourView = view.FindViewById<View>( Resource.Id.players_listitem_view_colour );
 		}
 
-		public void UpdateViews( PlayerListItem playerListItem )
+		public void UpdateViews( PlayerListItemViewModel playerListItem )
 		{
 			_colourView.SetBackgroundColor( Color.ParseColor( playerListItem.Colour ) );
 			_playerName.Text = playerListItem.PlayerName;

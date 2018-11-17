@@ -1,11 +1,10 @@
 ﻿using HeartsTracker.Api.Services.Interfaces;
-using HeartsTracker.Api.Models;
-using HeartsTracker.Api.Models.Players;
-using HeartsTracker.Api.Models.Players.Requests;
+using HeartsTracker.Shared.Models.Player.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeartsTracker.Api.Controllers
 {
+	[Produces( "application/json" )]
 	public class PlayersController : BaseController
 	{
 		private readonly IPlayerService _playerService;
@@ -15,46 +14,46 @@ namespace HeartsTracker.Api.Controllers
 			_playerService = playerService;
 		}
 
-		// GET api/players/all?isActive=false
-		[HttpGet( "All" )]
-		public PlayerList GetAll( bool? isActive = null )
+		// GET api/players?isActive=false
+		[HttpGet( "" )]
+		public PlayerListResponse All( bool? isActive = null )
 		{
 			return _playerService.GetList( isActive );
 		}
 
-		// GET api/players/get?id=5
-		[HttpGet( "Get" )]
-		public PlayerDetails Get( int id )
-		{
-			return _playerService.GetDetails( id );
-		}
-
-		// POST api/players/create
-		[HttpPost( "Create" )]
-		public PlayerListItem Post( [FromBody]AddPlayerRequest playerRequest )
-		{
-			return _playerService.Create( playerRequest );
-		}
-
-		// PUT api/players/update?id=5
-		[HttpPut( "Update" )]
-		public void Update( int id, [FromBody]PlayerDetails playerDetails )
-		{
-			_playerService.UpdateDetails( playerDetails );
-		}
-
-		// PUT api/players/archive?id=5
-		[HttpPut( "Archive" )]
+		// PUT api/players/archive/1
+		[HttpPut( "archive/{id}" )]
 		public void Archive( int id )
 		{
 			_playerService.Archive( id );
 		}
 
-		// PUT api/players/unarchive?id=5
-		[HttpPut( "UnArchive" )]
+		// POST api/players/create
+		[HttpPost( "create" )]
+		public PlayerListItemResponse Create( [FromBody]AddPlayerRequest request )
+		{
+			return _playerService.Create( request );
+		}
+
+		// GET api/players/1
+		[HttpGet( "{id}" )]
+		public PlayerResponse Get( int id )
+		{
+			return _playerService.GetDetails( id );
+		}
+
+		// PUT api/players/unarchive/1
+		[HttpPut( "unarchive/{id}" )]
 		public void UnArchive( int id )
 		{
 			_playerService.UnArchive( id );
+		}
+
+		// PUT api/players/update/1
+		[HttpPut( "update/{id}" )]
+		public void Update( int id, [FromBody]UpdatePlayerRequest request )
+		{
+			_playerService.Update( request );
 		}
 	}
 }

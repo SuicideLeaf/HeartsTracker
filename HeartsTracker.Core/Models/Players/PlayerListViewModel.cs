@@ -1,22 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Core.Models.Players
 {
-	//public class PlayerListViewModel
-	//{
-	//	public List<PlayerListItem> Players { get; set; }
+	public class PlayerListViewModel
+	{
+		public List<PlayerListItemViewModel> Players { get; set; }
 
-	//	public PlayerListViewModel( )
-	//	{
-	//		Players = new List<PlayerListItem>( );
-	//	}
+		public PlayerListViewModel( )
+		{
+			Players = new List<PlayerListItemViewModel>( );
+		}
 
-	//	public PlayerListViewModel( PlayerList playerList )
-	//	{
-	//		Players = playerList.Players
-	//			.Select( p => new PlayerListItem( p ) )
-	//			.ToList( );
-	//	}
-	//}
+		public PlayerListViewModel( PlayerListResponse playerList )
+		{
+			Players = playerList.Players
+				.Select( p => new PlayerListItemViewModel( p ) )
+				.ToList( );
+		}
+
+		public void SortByNameAsc( )
+		{
+			Players = Players.OrderBy( p => p.PlayerName ).ToList( );
+		}
+	}
 }

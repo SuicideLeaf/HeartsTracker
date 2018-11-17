@@ -7,13 +7,13 @@ namespace HeartsTracker.Android.Adapters
 {
 	public class PlayersAdapter : RecyclerView.Adapter
 	{
-		private PlayerList _playerList;
+		private PlayerListViewModel _playerList;
 
 		public EventHandler<int> PlayerClicked { get; set; }
 
 		public PlayersAdapter( )
 		{
-			_playerList = new PlayerList( );
+			_playerList = new PlayerListViewModel( );
 		}
 
 		private Action<object, int> OnClick => ( obj, pos ) =>
@@ -26,7 +26,7 @@ namespace HeartsTracker.Android.Adapters
 		public override void OnBindViewHolder( RecyclerView.ViewHolder holder, int position )
 		{
 			PlayerListItemViewHolder vh = ( PlayerListItemViewHolder )holder;
-			PlayerListItem playerListItem = _playerList.Players[ position ];
+			PlayerListItemViewModel playerListItem = _playerList.Players[ position ];
 
 			vh.UpdateViews( playerListItem );
 		}
@@ -39,25 +39,26 @@ namespace HeartsTracker.Android.Adapters
 			return new PlayerListItemViewHolder( view, OnClick );
 		}
 
-		public PlayerListItem GetPlayer( int position )
+		public PlayerListItemViewModel GetPlayer( int position )
 		{
 			return _playerList.Players[ position ];
 		}
 
-		public void ReplaceData( PlayerList playerList )
+		public void ReplaceData( PlayerListViewModel playerList )
 		{
 			SetPlayers( playerList );
 			NotifyDataSetChanged( );
 		}
 
-		public void AddPlayerToList( PlayerListItem playerListItem )
+		public void AddPlayerToList( PlayerListItemViewModel playerListItem )
 		{
 			_playerList.Players.Add( playerListItem );
-			_playerList.SortPlayers( );
+			_playerList.SortByNameAsc( );
+
 			NotifyDataSetChanged( );
 		}
 
-		private void SetPlayers( PlayerList playerList )
+		private void SetPlayers( PlayerListViewModel playerList )
 		{
 			_playerList = playerList;
 		}

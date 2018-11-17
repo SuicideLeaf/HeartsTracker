@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using HeartsTracker.Api.Models.Players;
-using HeartsTracker.Api.Models.Players.Requests;
+﻿using AutoMapper;
 using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.DataTransferObjects;
 using HeartsTracker.Dal.Entities;
 using HeartsTracker.Dal.Repositories.Interfaces;
-using PlayerDetails = HeartsTracker.Api.Models.Players.PlayerDetails;
+using HeartsTracker.Shared.Models.Player.Requests;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HeartsTracker.Api.Services
 {
@@ -22,40 +20,19 @@ namespace HeartsTracker.Api.Services
 			_playerRepository = playerRepository;
 		}
 
-		public PlayerList GetList( )
+		public void Archive( int playerId )
 		{
-			List<PlayerListItemDto> playerDtos = _playerRepository.GetAllPlayers( );
-			List<PlayerListItem> players = playerDtos.Select( p => _mapper.Map<PlayerListItem>( p ) ).ToList( );
+			Player player = _playerRepository.Get( playerId );
 
-			return new PlayerList( players );
-		}
-
-		public PlayerList GetList( bool? isActive )
-		{
-			PlayerList playerList;
-			if ( isActive.HasValue )
+			if ( player != null )
 			{
-				List<PlayerListItemDto> playerDtos = _playerRepository.GetPlayersByActive( isActive.Value );
-				List<PlayerListItem> players = playerDtos.Select( p => _mapper.Map<PlayerListItem>( p ) ).ToList( );
-
-				playerList = new PlayerList( players );
-			}
-			else
-			{
-				playerList = GetList( );
+				player.IsActive = false;
 			}
 
-			return playerList;
+			_playerRepository.SaveChanges( );
 		}
 
-		public PlayerDetails GetDetails( int playerId )
-		{
-			PlayerDetailsDto playerDetailsDto = _playerRepository.GetPlayerDetails( playerId );
-
-			return _mapper.Map<PlayerDetails>( playerDetailsDto );
-		}
-
-		public PlayerListItem Create( AddPlayerRequest playerRequest )
+		public PlayerListItemResponse Create( AddPlayerRequest playerRequest )
 		{
 			Player player = new Player
 			{
@@ -69,36 +46,42 @@ namespace HeartsTracker.Api.Services
 			_playerRepository.Add( player );
 			_playerRepository.SaveChanges( );
 
-			PlayerListItemDto playerListItemDto = _mapper.Map<PlayerListItemDto>( player );
+			PlayerListItem playerListItemDto = _mapper.Map<PlayerListItem>( player );
 
-			return _mapper.Map<PlayerListItem>( playerListItemDto );
+			return _mapper.Map<PlayerListItemResponse>( playerListItemDto );
 		}
 
-		public void UpdateDetails( PlayerDetails playerDetails )
+		public PlayerResponse GetDetails( int playerId )
 		{
-			Player player = _playerRepository.Get( playerDetails.Id );
+			PlayerDetails playerDetailsDto = _playerRepository.GetPlayerDetails( playerId );
 
-			if ( player != null )
-			{
-				player.PlayerName = playerDetails.PlayerName;
-				player.FirstName = playerDetails.FirstName;
-				player.LastName = playerDetails.LastName;
-				player.Colour = playerDetails.Colour;
-			}
-
-			_playerRepository.SaveChanges( );
+			return _mapper.Map<PlayerResponse>( playerDetailsDto );
 		}
 
-		public void Archive( int playerId )
+		public PlayerListResponse GetList( )
 		{
-			Player player = _playerRepository.Get( playerId );
+			List<PlayerListItem> playerDtos = _playerRepository.GetPlayers( );
+			List<PlayerListItemResponse> players = playerDtos.Select( p => _mapper.Map<PlayerListItemResponse>( p ) ).ToList( );
 
-			if ( player != null )
+			return new PlayerListResponse( players );
+		}
+
+		public PlayerListResponse GetList( bool? isActive )
+		{
+			PlayerListResponse playerList;
+			if ( isActive.HasValue )
 			{
-				player.IsActive = false;
+				List<PlayerListItem> playerDtos = _playerRepository.GetPlayers( isActive.Value );
+				List<PlayerListItemResponse> players = playerDtos.Select( p => _mapper.Map<PlayerListItemResponse>( p ) ).ToList( );
+
+				playerList = new PlayerListResponse( players );
+			}
+			else
+			{
+				playerList = GetList( );
 			}
 
-			_playerRepository.SaveChanges( );
+			return playerList;
 		}
 
 		public void UnArchive( int playerId )
@@ -108,9 +91,24 @@ namespace HeartsTracker.Api.Services
 			if ( player != null )
 			{
 				player.IsActive = true;
-			}
 
-			_playerRepository.SaveChanges( );
+				_playerRepository.SaveChanges( );
+			}
+		}
+
+		public void Update( UpdatePlayerRequest updateRequest )
+		{
+			Player player = _playerRepository.Get( updateRequest.Id );
+
+			if ( player != null )
+			{
+				player.PlayerName = updateRequest.PlayerName;
+				player.FirstName = updateRequest.FirstName;
+				player.LastName = updateRequest.LastName;
+				player.Colour = updateRequest.Colour;
+
+				_playerRepository.SaveChanges( );
+			}
 		}
 	}
 }

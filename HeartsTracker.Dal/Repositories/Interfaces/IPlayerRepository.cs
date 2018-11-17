@@ -6,8 +6,8 @@ namespace HeartsTracker.Dal.Repositories.Interfaces
 {
 	public interface IPlayerRepository : IArchiveableRepository<Player, int>
 	{
-		List<PlayerListItemDto> GetAllPlayers( );
-		List<PlayerListItemDto> GetPlayersByActive( bool isActive );
-		PlayerDetailsDto GetPlayerDetails( int id );
+		List<PlayerListItem> GetPlayers( );
+		List<PlayerListItem> GetPlayers( bool isActive );
+		PlayerDetails GetPlayerDetails( int id );
 	}
 }

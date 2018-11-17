@@ -7,13 +7,11 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using HeartsTracker.Android.Adapters;
 using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
-using HeartsTracker.Core.QueryParams.Players;
 using HeartsTracker.Core.Views.Players;
 using Newtonsoft.Json;
 using Unity;
@@ -21,15 +19,13 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Players", MainLauncher = true )]
-	public class PlayersActivity : BaseApiActivity<PlayersPresenter, PlayersQueryParameters>, IPlayersView
+	public class PlayersActivity : BaseApiActivity<PlayersPresenter>, IPlayersView
 	{
 		private const int AddPlayerRequestCode = 1;
 
 		private PlayersAdapter _playersAdapter;
 		private RecyclerView _recyclerView;
 		private ConstraintLayout _playersView;
-		private ConstraintLayout _noPlayersView;
-		private TextView _noPlayersTextView;
 		private FloatingActionButton _fabAddPlayer;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
@@ -40,8 +36,6 @@ namespace HeartsTracker.Android.Activities.Players
 
 		protected override void OnCreate( Bundle savedInstanceState )
 		{
-			QueryParameters = new PlayersQueryParameters( );
-
 			base.OnCreate( savedInstanceState );
 
 			SetContentView( Resource.Layout.players_activity );
@@ -62,7 +56,7 @@ namespace HeartsTracker.Android.Activities.Players
 			if ( requestCode == AddPlayerRequestCode && resultCode == Result.Ok )
 			{
 				string jsonPlayerListItemData = data.GetStringExtra( "PlayerListItem" );
-				PlayerListItem playerListItem = JsonConvert.DeserializeObject<PlayerListItem>( jsonPlayerListItemData );
+				PlayerListItemViewModel playerListItem = JsonConvert.DeserializeObject<PlayerListItemViewModel>( jsonPlayerListItemData );
 				_playersAdapter.AddPlayerToList( playerListItem );
 			}
 		}
@@ -71,8 +65,6 @@ namespace HeartsTracker.Android.Activities.Players
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
 			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
-			_noPlayersView = FindViewById<ConstraintLayout>( Resource.Id.players_none_rootlayout );
-			_noPlayersTextView = FindViewById<TextView>( Resource.Id.players_none_textview );
 			_fabAddPlayer = FindViewById<FloatingActionButton>( Resource.Id.players_fab_addplayer );
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
@@ -82,7 +74,7 @@ namespace HeartsTracker.Android.Activities.Players
 			_playersAdapter = new PlayersAdapter( );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
 			{
-				PlayerListItem playerListItem = _playersAdapter.GetPlayer( pos );
+				PlayerListItemViewModel playerListItem = _playersAdapter.GetPlayer( pos );
 				LoadPlayerDetailsScreen( playerListItem.Id );
 			};
 			_recyclerView.SetLayoutManager( new LinearLayoutManager( this ) );
@@ -113,13 +105,14 @@ namespace HeartsTracker.Android.Activities.Players
 				case Enums.DataError.NotFound:
 					ToggleRetryOverlay( true, "No players found... Tap to retry" );
 					break;
+
 				default:
 					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
 					break;
 			}
 		}
 
-		public void ShowPlayers( PlayerList playerList )
+		public void ShowPlayers( PlayerListViewModel playerList )
 		{
 			_playersAdapter.ReplaceData( playerList );
 			ToggleRefreshing( false );
@@ -135,15 +128,11 @@ namespace HeartsTracker.Android.Activities.Players
 		public void ToggleLoadingOverlay( bool active )
 		{
 			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-			_noPlayersView.Visibility = active ? ViewStates.Visible : ViewStates.Gone;
-			_noPlayersTextView.Text = "Loading...";
 		}
 
 		public void ToggleRetryOverlay( bool active, string message = "" )
 		{
 			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-			_noPlayersView.Visibility = active ? ViewStates.Visible : ViewStates.Gone;
-			_noPlayersTextView.Text = message;
 		}
 
 		public void ShowLoadingOverlay( )

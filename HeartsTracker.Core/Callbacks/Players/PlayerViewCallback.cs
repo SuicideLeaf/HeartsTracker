@@ -13,7 +13,7 @@ namespace HeartsTracker.Core.Callbacks.Players
 			_playerView = playerView;
 		}
 
-		public void OnPlayerLoaded( Player player )
+		public void OnPlayerLoaded( PlayerViewModel player )
 		{
 			ProcessPlayer( player );
 		}
@@ -23,7 +23,7 @@ namespace HeartsTracker.Core.Callbacks.Players
 			_playerView.ShowDataError( dataError );
 		}
 
-		private void ProcessPlayer( Player player )
+		private void ProcessPlayer( PlayerViewModel player )
 		{
 			// Show the player details
 			_playerView.ShowPlayer( player );

@@ -30,14 +30,6 @@ namespace HeartsTracker.Dal.Classes
 					LastName = "Matulich",
 					PlayerName = "Leeness",
 					Colour = "#000000"
-				},
-				new Player
-				{
-					IsActive = true,
-					FirstName = "Riki",
-					LastName = "Waikato",
-					PlayerName = "Phaser",
-					Colour = "#ffffff"
 				}
 			};
 

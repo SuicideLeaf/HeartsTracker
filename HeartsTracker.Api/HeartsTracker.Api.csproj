@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Classes\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HeartsTracker.Dal\HeartsTracker.Dal.csproj" />
+    <ProjectReference Include="..\HeartsTracker.Shared\HeartsTracker.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,16 +6,15 @@ using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
-using HeartsTracker.Core.QueryParams.Players;
 using HeartsTracker.Core.Views.Players;
 using Unity;
 
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Player Details" )]
-	public class PlayerActivity : BaseApiActivity<PlayerPresenter, PlayerQueryParameters>, IPlayerView
+	public class PlayerActivity : BaseApiActivity<PlayerPresenter>, IPlayerView
 	{
-		private int _playerId;
+		public int PlayerId { get; set; }
 
 		private TextView _playerNameTextView;
 		private TextView _firstNameTextView;
@@ -29,9 +28,7 @@ namespace HeartsTracker.Android.Activities.Players
 
 		protected override void OnCreate( Bundle savedInstanceState )
 		{
-			_playerId = Intent.GetIntExtra( "PlayerId", 0 );
-
-			QueryParameters = new PlayerQueryParameters( _playerId );
+			PlayerId = Intent.GetIntExtra( "PlayerId", 0 );
 
 			base.OnCreate( savedInstanceState );
 
@@ -86,7 +83,7 @@ namespace HeartsTracker.Android.Activities.Players
 			//
 		}
 
-		public void ShowPlayer( Player player )
+		public void ShowPlayer( PlayerViewModel player )
 		{
 			_playerNameTextView.Text = player.PlayerName;
 			_firstNameTextView.Text = player.FirstName;

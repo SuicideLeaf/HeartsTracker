@@ -13,7 +13,7 @@ namespace HeartsTracker.Core.Callbacks.Players
 			_addPlayerView = addPlayerView;
 		}
 
-		public void OnPlayerAdded( PlayerListItem playerListItem )
+		public void OnPlayerAdded( PlayerListItemViewModel playerListItem )
 		{
 			_addPlayerView.FinishActivity( playerListItem );
 		}

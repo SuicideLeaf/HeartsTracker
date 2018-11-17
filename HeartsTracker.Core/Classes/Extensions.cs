@@ -10,6 +10,7 @@ namespace HeartsTracker.Core.Classes
 			{
 				case HttpStatusCode.NotFound:
 					return Enums.DataError.NotFound;
+
 				default:
 					return Enums.DataError.Connection;
 			}

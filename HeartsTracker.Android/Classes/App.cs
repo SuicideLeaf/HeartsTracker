@@ -16,7 +16,9 @@ namespace HeartsTracker.Android.Classes
 	{
 		public static UnityContainer Container { get; set; }
 
-		public App( IntPtr javaRef, JniHandleOwnership transfer ) : base( javaRef, transfer ) { }
+		public App( IntPtr javaRef, JniHandleOwnership transfer ) : base( javaRef, transfer )
+		{
+		}
 
 		public override void OnCreate( )
 		{
@@ -24,8 +26,8 @@ namespace HeartsTracker.Android.Classes
 
 			Container = new UnityContainer( );
 
-			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.1.72:54430" ) );
-			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>("PlayerApiDataSource");
+			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.1.66:54430/" ) );
+			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>( "PlayerApiDataSource" );
 			Container.RegisterType<IGetPlayersCallback, PlayersViewCallback>( );
 			Container.RegisterType<IGetPlayerCallback, PlayerViewCallback>( );
 			Container.RegisterType<IAddPlayerCallback, AddPlayerViewCallback>( );

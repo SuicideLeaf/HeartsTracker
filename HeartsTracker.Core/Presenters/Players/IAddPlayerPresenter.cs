@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Models.Players.Requests;
+﻿using HeartsTracker.Shared.Models.Player.Requests;
+using System.Threading.Tasks;
 
 namespace HeartsTracker.Core.Presenters.Players
 {
 	public interface IAddPlayerPresenter
 	{
 		Task AddPlayer( );
+
 		AddPlayerRequest CreateAddPlayerRequestModel( );
 	}
 }

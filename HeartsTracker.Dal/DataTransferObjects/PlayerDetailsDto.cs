@@ -1,6 +1,6 @@
 ﻿namespace HeartsTracker.Dal.DataTransferObjects
 {
-	public class PlayerDetailsDto
+	public class PlayerDetails
 	{
 		public int Id { get; set; }
 		public string FirstName { get; set; }
