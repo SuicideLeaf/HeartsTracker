@@ -9,6 +9,7 @@ namespace HeartsTracker.Dal.Entities
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
 		public bool IsComplete { get; set; }
+		public bool IsActive { get; set; }
 
 		public int? WinnerId { get; set; }
 		public Player Winner { get; set; }

@@ -22,8 +22,8 @@ namespace HeartsTracker.Dal.Entities
 
 		[InverseProperty( "Loser" )]
 		public ICollection<Game> GamesLost { get; set; }
-		
-		[InverseProperty("Dealer")]
+
+		[InverseProperty( "Dealer" )]
 		public ICollection<GameRound> GameRoundsDealt { get; set; }
 	}
 }
