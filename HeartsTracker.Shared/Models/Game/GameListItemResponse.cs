@@ -1,6 +1,6 @@
-﻿namespace HeartsTracker.Shared.Models.Player
+﻿namespace HeartsTracker.Shared.Models.Game
 {
-	public class PlayerListItemResponse
+	public class GameListItemResponse
 	{
 		public int Id { get; set; }
 		public string PlayerName { get; set; }

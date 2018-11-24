@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HeartsTracker.Shared.Models.Player.Requests
+namespace HeartsTracker.Shared.Models.Player
 {
 	public class PlayerListResponse
 	{

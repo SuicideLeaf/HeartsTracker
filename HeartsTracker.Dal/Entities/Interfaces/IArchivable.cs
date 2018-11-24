@@ -1,6 +1,6 @@
 namespace HeartsTracker.Dal.Entities.Interfaces
 {
-	public interface IArchiveable
+	public interface IArchivable
 	{
 		bool IsActive { get; set; }
 	}

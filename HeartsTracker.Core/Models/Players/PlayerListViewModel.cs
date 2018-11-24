@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HeartsTracker.Shared.Models.Player.Requests;
+using HeartsTracker.Shared.Models.Player;
 
 namespace HeartsTracker.Core.Models.Players
 {

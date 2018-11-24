@@ -20,13 +20,13 @@ namespace HeartsTracker.Core.Presenters.Players
 
 		public async Task AddPlayer( )
 		{
-			AddPlayerRequest playerToAdd = CreateAddPlayerRequestModel( );
+			CreatePlayerRequest playerToAdd = CreateAddPlayerRequestModel( );
 			await _playerRepository.AddPlayer( playerToAdd, _addPlayerViewCallback );
 		}
 
-		public AddPlayerRequest CreateAddPlayerRequestModel( )
+		public CreatePlayerRequest CreateAddPlayerRequestModel( )
 		{
-			AddPlayerRequest player = new AddPlayerRequest( View.PlayerName, View.FirstName, View.LastName, View.Colour );
+			CreatePlayerRequest player = new CreatePlayerRequest( View.PlayerName, View.FirstName, View.LastName, View.Colour );
 
 			return player;
 		}

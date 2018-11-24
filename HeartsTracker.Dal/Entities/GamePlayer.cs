@@ -2,8 +2,10 @@
 
 namespace HeartsTracker.Dal.Entities
 {
-    public class GamePlayer
+	public class GamePlayer
 	{
+		public int OrderNumber { get; set; }
+
 		public int GameId { get; set; }
 		public Game Game { get; set; }
 

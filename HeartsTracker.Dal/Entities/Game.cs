@@ -1,13 +1,14 @@
-﻿using System;
+﻿using HeartsTracker.Dal.Entities.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace HeartsTracker.Dal.Entities
 {
-	public class Game
+	public class Game : IArchivable
 	{
 		public int Id { get; set; }
 		public DateTime StartDateTime { get; set; }
-		public DateTime EndDateTime { get; set; }
+		public DateTime? EndDateTime { get; set; }
 		public bool IsComplete { get; set; }
 		public bool IsActive { get; set; }
 

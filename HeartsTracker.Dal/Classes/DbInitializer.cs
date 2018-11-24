@@ -12,11 +12,11 @@ namespace HeartsTracker.Dal.Classes
 
 			if ( wipeData )
 			{
-				context.Player.RemoveRange( context.Player );
+				context.Players.RemoveRange( context.Players );
 				context.SaveChanges( );
 			}
 
-			if ( context.Player.Any( ) )
+			if ( context.Players.Any( ) )
 			{
 				// DB has been seeded.
 				return;
@@ -33,7 +33,7 @@ namespace HeartsTracker.Dal.Classes
 				}
 			};
 
-			context.Player.AddRange( players );
+			context.Players.AddRange( players );
 
 			context.SaveChanges( );
 		}

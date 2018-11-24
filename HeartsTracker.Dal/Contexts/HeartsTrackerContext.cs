@@ -5,13 +5,15 @@ namespace HeartsTracker.Dal.Contexts
 {
 	public class HeartsTrackerContext : DbContext
 	{
-		public HeartsTrackerContext( DbContextOptions options ) : base( options ) { }
+		public HeartsTrackerContext( DbContextOptions options ) : base( options )
+		{
+		}
 
-		public DbSet<Player> Player { get; set; }
-		public DbSet<Game> Game { get; set; }
-		public DbSet<GameRound> GameRound { get; set; }
-		public DbSet<GamePlayer> GamePlayer { get; set; }
-		public DbSet<PlayerScore> PlayerScore { get; set; }
+		public DbSet<Player> Players { get; set; }
+		public DbSet<Game> Games { get; set; }
+		public DbSet<GameRound> GameRounds { get; set; }
+		public DbSet<GamePlayer> GamePlayers { get; set; }
+		public DbSet<PlayerScore> PlayerScores { get; set; }
 
 		protected override void OnModelCreating( ModelBuilder modelBuilder )
 		{

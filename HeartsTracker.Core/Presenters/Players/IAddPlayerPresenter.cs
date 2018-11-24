@@ -7,6 +7,6 @@ namespace HeartsTracker.Core.Presenters.Players
 	{
 		Task AddPlayer( );
 
-		AddPlayerRequest CreateAddPlayerRequestModel( );
+		CreatePlayerRequest CreateAddPlayerRequestModel( );
 	}
 }

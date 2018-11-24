@@ -4,6 +4,7 @@ using HeartsTracker.Core.Interfaces;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.QueryParams.Players;
+using HeartsTracker.Shared.Models.Player;
 using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Core.DataSources.Players
@@ -40,7 +41,7 @@ namespace HeartsTracker.Core.DataSources.Players
 			HandleResponse( response, ( ) => { callback.OnPlayerLoaded( new PlayerViewModel( response.Content ) ); }, callback );
 		}
 
-		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback )
+		public async Task AddPlayer( CreatePlayerRequest player, IAddPlayerCallback callback )
 		{
 			QueryParameters queryParams = new QueryParameters( );
 

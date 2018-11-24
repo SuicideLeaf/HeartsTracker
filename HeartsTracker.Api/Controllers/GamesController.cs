@@ -1,7 +1,13 @@
-﻿using HeartsTracker.Api.Models.Games;
-using HeartsTracker.Api.Models.Games.Requests;
+﻿using AutoMapper;
+using HeartsTracker.Api.Classes;
+using HeartsTracker.Api.DomainModels.Games;
+using HeartsTracker.Api.DomainModels.PlayerScores;
 using HeartsTracker.Api.Services.Interfaces;
+using HeartsTracker.Shared.Models.Game;
+using HeartsTracker.Shared.Models.Game.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace HeartsTracker.Api.Controllers
 {
@@ -9,52 +15,97 @@ namespace HeartsTracker.Api.Controllers
 	public class GamesController : BaseController
 	{
 		private readonly IGameService _gameService;
+		private readonly IPlayerScoreService _scoreService;
 
-		public GamesController( IGameService gameService )
+		public GamesController( IMapper mapper, IGameService gameService, IPlayerScoreService scoreService ) : base( mapper )
 		{
 			_gameService = gameService;
+			_scoreService = scoreService;
 		}
 
-		//// GET api/games/all?isActive=false
-		//[HttpGet( "All" )]
-		//public GameList All( bool? isActive = null )
-		//{
-		//	return _gameService.GetList( isActive );
-		//}
+		[HttpPost( "addround/{id}" )]
+		[ProducesResponseType( 201 )]
+		public IActionResult AddRound( int id )
+		{
+			var roundId = _gameService.AddRound( id );
 
-		//// GET api/games/get?id=5
-		//[HttpGet( "Get" )]
-		//public GameDetails Get( int id )
-		//{
-		//	return _gameService.GetDetails( id );
-		//}
+			return Created( new Uri( $"" ), roundId );
+		}
 
-		//// POST api/games/create
-		//[HttpPost( "Create" )]
-		//public int Create( [FromBody]CreateGameRequest gameRequest )
-		//{
-		//	return _gameService.Create( gameRequest );
-		//}
+		[HttpGet( "" )]
+		[ProducesResponseType( 200 )]
+		public ActionResult<GameListResponse> All( )
+		{
+			var games = _gameService.GetList( Enums.ActiveStatus.Both );
 
-		//// PUT api/games/update?id=5
-		//[HttpPut( "Update" )]
-		//public void Update( int id, [FromBody]GameDetails gameDetails )
-		//{
-		//	_gameService.UpdateDetails( gameDetails );
-		//}
+			return new GameListResponse( Mapper.Map<List<GameListItemResponse>>( games ) );
+		}
 
-		//// PUT api/games/archive?id=5
-		//[HttpPut( "Archive" )]
-		//public void Archive( int id )
-		//{
-		//	_gameService.Archive( id );
-		//}
+		[HttpPut( "archive/{id}" )]
+		[ProducesResponseType( 200 )]
+		public IActionResult Archive( int id )
+		{
+			_gameService.Archive( id );
 
-		//// PUT api/games/unarchive?id=5
-		//[HttpPut( "UnArchive" )]
-		//public void UnArchive( int id )
-		//{
-		//	_gameService.UnArchive( id );
-		//}
+			return Ok( );
+		}
+
+		[HttpPut( "complete/{id}" )]
+		[ProducesResponseType( 200 )]
+		public IActionResult Complete( int id )
+		{
+			_gameService.Complete( id );
+
+			return Ok( );
+		}
+
+		[HttpPost( "create" )]
+		[ProducesResponseType( 201 )]
+		public IActionResult Create( [FromBody]CreateGameRequest request )
+		{
+			var game = Mapper.Map<Game>( request );
+
+			int gameId = _gameService.Create( game, request.Players );
+
+			return Created( new Uri( $"" ), gameId );
+		}
+
+		[HttpPut( "unarchive/{id}" )]
+		[ProducesResponseType( 200 )]
+		public ActionResult UnArchive( int id )
+		{
+			_gameService.UnArchive( id );
+
+			return Ok( );
+		}
+
+		[HttpPut( "updateplayersscores/{id}" )]
+		[ProducesResponseType( 200 )]
+		[ProducesResponseType( 400 )]
+		public IActionResult UpdatePlayersScores( int id, UpdatePlayersScoresRequest request )
+		{
+			var playersScores = Mapper.Map<List<PlayerScore>>( request.PlayerScores );
+
+			if ( !request.RoundId.HasValue )
+			{
+				var currentRound = _gameService.GetCurrentRound( id );
+
+				if ( currentRound == null )
+				{
+					return BadRequest( );
+				}
+
+				request.RoundId = currentRound.Id;
+			}
+
+			foreach ( var score in playersScores )
+			{
+				score.RoundId = request.RoundId.Value;
+			}
+
+			_scoreService.UpdateRange( playersScores );
+
+			return Ok( );
+		}
 	}
 }

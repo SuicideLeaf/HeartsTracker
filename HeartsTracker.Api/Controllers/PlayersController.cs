@@ -1,6 +1,12 @@
-﻿using HeartsTracker.Api.Services.Interfaces;
+﻿using AutoMapper;
+using HeartsTracker.Api.Classes;
+using HeartsTracker.Api.DomainModels.Players;
+using HeartsTracker.Api.Services.Interfaces;
+using HeartsTracker.Shared.Models.Player;
 using HeartsTracker.Shared.Models.Player.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace HeartsTracker.Api.Controllers
 {
@@ -9,51 +15,62 @@ namespace HeartsTracker.Api.Controllers
 	{
 		private readonly IPlayerService _playerService;
 
-		public PlayersController( IPlayerService playerService )
+		public PlayersController( IMapper mapper, IPlayerService playerService ) : base( mapper )
 		{
 			_playerService = playerService;
 		}
 
-		// GET api/players?isActive=false
 		[HttpGet( "" )]
-		public PlayerListResponse All( bool? isActive = null )
+		[ProducesResponseType( 200 )]
+		public ActionResult<PlayerListResponse> All( )
 		{
-			return _playerService.GetList( isActive );
+			var players = _playerService.GetList( Enums.ActiveStatus.Both );
+
+			return new PlayerListResponse( Mapper.Map<List<PlayerListItemResponse>>( players ) );
 		}
 
-		// PUT api/players/archive/1
 		[HttpPut( "archive/{id}" )]
-		public void Archive( int id )
+		public IActionResult Archive( int id )
 		{
 			_playerService.Archive( id );
+
+			return Ok( );
 		}
 
-		// POST api/players/create
 		[HttpPost( "create" )]
-		public PlayerListItemResponse Create( [FromBody]AddPlayerRequest request )
+		[ProducesResponseType( 201 )]
+		public IActionResult Create( [FromBody]CreatePlayerRequest request )
 		{
-			return _playerService.Create( request );
+			var playerId = _playerService.Create( Mapper.Map<Player>( request ) );
+
+			return Created( new Uri( $"api/players/{playerId}" ), playerId );
 		}
 
-		// GET api/players/1
 		[HttpGet( "{id}" )]
-		public PlayerResponse Get( int id )
+		[ProducesResponseType( 200 )]
+		public ActionResult<PlayerResponse> Get( int id )
 		{
-			return _playerService.GetDetails( id );
+			var player = _playerService.GetDetails( id );
+
+			return Mapper.Map<PlayerResponse>( player );
 		}
 
-		// PUT api/players/unarchive/1
 		[HttpPut( "unarchive/{id}" )]
-		public void UnArchive( int id )
+		[ProducesResponseType( 200 )]
+		public IActionResult UnArchive( int id )
 		{
 			_playerService.UnArchive( id );
+
+			return Ok( );
 		}
 
-		// PUT api/players/update/1
 		[HttpPut( "update/{id}" )]
-		public void Update( int id, [FromBody]UpdatePlayerRequest request )
+		[ProducesResponseType( 200 )]
+		public IActionResult Update( int id, [FromBody]UpdatePlayerRequest request )
 		{
-			_playerService.Update( request );
+			_playerService.Update( Mapper.Map<Player>( request ) );
+
+			return Ok( );
 		}
 	}
 }

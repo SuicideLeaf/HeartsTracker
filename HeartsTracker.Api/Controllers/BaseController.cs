@@ -1,8 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HeartsTracker.Api.Controllers
 {
 	[Produces( "application/json" )]
 	[Route( "api/[controller]" )]
-	public class BaseController : Controller { }
+	[ApiController]
+	public class BaseController : ControllerBase
+	{
+		public IMapper Mapper { get; }
+
+		public BaseController( IMapper mapper )
+		{
+			Mapper = mapper;
+		}
+	}
 }

@@ -7,7 +7,7 @@ using HeartsTracker.Dal.Repositories.Interfaces;
 namespace HeartsTracker.Dal.Repositories
 {
 	public class ArchiveableRepository<TEntity, TKey> : BaseRepository<TEntity, TKey>, IArchiveableRepository<TEntity, TKey>
-		where TEntity : class, IArchiveable
+		where TEntity : class, IArchivable
 		where TKey : struct, IEquatable<TKey>
 	{
 		public ArchiveableRepository( HeartsTrackerContext context, IMapper mapper ) : base( context, mapper )

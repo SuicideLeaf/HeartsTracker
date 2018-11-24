@@ -14,7 +14,7 @@ namespace HeartsTracker.Core.Repositories.Players
 			_playersApiDataSource = playersApiDataSource;
 		}
 
-		public async Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback )
+		public async Task AddPlayer( CreatePlayerRequest player, IAddPlayerCallback callback )
 		{
 			await _playersApiDataSource.AddPlayer( player, callback );
 		}

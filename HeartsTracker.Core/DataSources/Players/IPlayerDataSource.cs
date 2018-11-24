@@ -8,6 +8,6 @@ namespace HeartsTracker.Core.DataSources.Players
 	{
 		Task GetPlayers( IGetPlayersCallback callback );
 		Task GetPlayer( IGetPlayerCallback callback, int playerId );
-		Task AddPlayer( AddPlayerRequest player, IAddPlayerCallback callback );
+		Task AddPlayer( CreatePlayerRequest player, IAddPlayerCallback callback );
 	}
 }

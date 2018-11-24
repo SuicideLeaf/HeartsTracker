@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.QueryParams.Players;
+using HeartsTracker.Shared.Models.Player;
 using HeartsTracker.Shared.Models.Player.Requests;
 using Refit;
 
@@ -17,7 +18,7 @@ namespace HeartsTracker.Core.Interfaces
 		Task<UpdatePlayerRequest> GetPlayer( int playerId, QueryParameters queryParams );
 
 		[Post( "/api/players/create" )]
-		Task<PlayerListItemResponse> CreatePlayer( [Body]AddPlayerRequest player, QueryParameters queryParams );
+		Task<PlayerListItemResponse> CreatePlayer( [Body]CreatePlayerRequest player, QueryParameters queryParams );
 
 		[Put( "/api/players/update/{playerId}" )]
 		Task<UpdatePlayerRequest> UpdatePlayer( int playerId, QueryParameters queryParams );

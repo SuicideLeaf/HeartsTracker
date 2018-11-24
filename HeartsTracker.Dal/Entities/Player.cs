@@ -4,7 +4,7 @@ using HeartsTracker.Dal.Entities.Interfaces;
 
 namespace HeartsTracker.Dal.Entities
 {
-	public class Player : IArchiveable
+	public class Player : IArchivable
 	{
 		public int Id { get; set; }
 		public string FirstName { get; set; }
