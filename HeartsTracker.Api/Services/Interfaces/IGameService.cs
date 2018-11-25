@@ -25,6 +25,11 @@ namespace HeartsTracker.Api.Services.Interfaces
 		void Complete( int gameId );
 
 		/// <summary>
+		/// Completes a particular <see cref="Dal.Entities.GameRound"/> by setting the <see cref="Dal.Entities.GameRound.IsComplete"/> to true
+		/// </summary>
+		void CompleteRound( int id );
+
+		/// <summary>
 		/// Creates a <see cref="Dal.Entities.Game"/> with some players and stores it in the database
 		/// </summary>
 		/// <returns>Returns the <see cref="Dal.Entities.Game.Id"/> of the created game</returns>

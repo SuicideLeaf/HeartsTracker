@@ -59,6 +59,23 @@ namespace HeartsTracker.Api.Controllers
 			return Ok( );
 		}
 
+		[HttpPut( "completeround/{id}" )]
+		[ProducesResponseType( 200 )]
+		public IActionResult CompleteRound( int id )
+		{
+			// Complete the current round before adding a new round.
+			var currentRound = _gameService.GetCurrentRound( id );
+
+			if ( currentRound == null )
+			{
+				return BadRequest( );
+			}
+
+			_gameService.CompleteRound( currentRound.Id );
+
+			return Ok( );
+		}
+
 		[HttpPost( "create" )]
 		[ProducesResponseType( 201 )]
 		public IActionResult Create( [FromBody]CreateGameRequest request )

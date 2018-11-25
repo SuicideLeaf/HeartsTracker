@@ -96,6 +96,18 @@ namespace HeartsTracker.Api.Services
 			SaveChanges( );
 		}
 
+		public void CompleteRound( int roundId )
+		{
+			var round = Rounds.TryGet( roundId );
+
+			if ( round != null )
+			{
+				round.IsComplete = true;
+
+				SaveChanges( );
+			}
+		}
+
 		public int Create( Game game, List<int> playerIds )
 		{
 			game.IsActive = true;
