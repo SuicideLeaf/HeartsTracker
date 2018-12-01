@@ -1,4 +1,4 @@
-﻿using HeartsTracker.Shared.Models.Player.Requests;
+﻿using HeartsTracker.Shared.Models.Player;
 
 namespace HeartsTracker.Core.Models.Players
 {
@@ -13,7 +13,7 @@ namespace HeartsTracker.Core.Models.Players
 		public PlayerViewModel( )
 		{ }
 
-		public PlayerViewModel( UpdatePlayerRequest player )
+		public PlayerViewModel( PlayerResponse player )
 		{
 			Id = player.Id;
 			PlayerName = player.PlayerName;

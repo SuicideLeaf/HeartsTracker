@@ -6,6 +6,7 @@ using HeartsTracker.Api.Extensions;
 using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,8 @@ namespace HeartsTracker.Api.Services
 
 		public int Create( Player player )
 		{
+			player.Colour = GetValidColour( player.Colour );
+
 			var playerEntity = Mapper.Map<Dal.Entities.Player>( player );
 
 			Players.Add( playerEntity );
@@ -77,6 +80,8 @@ namespace HeartsTracker.Api.Services
 
 		public void Update( Player player )
 		{
+			player.Colour = GetValidColour( player.Colour );
+
 			var playerEntity = Players.TryGet( player.Id );
 
 			if ( playerEntity != null )
@@ -85,6 +90,16 @@ namespace HeartsTracker.Api.Services
 
 				Context.SaveChanges( );
 			}
+		}
+
+		private string GetValidColour( string colour )
+		{
+			if ( !string.IsNullOrWhiteSpace( colour ) && !colour.Substring( 0, 1 ).Equals( "#" ) )
+			{
+				return "#" + colour;
+			}
+
+			return colour;
 		}
 	}
 }

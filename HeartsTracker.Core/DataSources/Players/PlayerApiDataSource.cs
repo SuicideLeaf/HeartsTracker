@@ -36,7 +36,7 @@ namespace HeartsTracker.Core.DataSources.Players
 		{
 			QueryParameters queryParams = new QueryParameters( );
 
-			ResponseWrapper<UpdatePlayerRequest> response = await SafeCallApi( ( ) => _api.GetPlayer( playerId, queryParams ) );
+			ResponseWrapper<PlayerResponse> response = await SafeCallApi( ( ) => _api.GetPlayer( playerId, queryParams ) );
 
 			HandleResponse( response, ( ) => { callback.OnPlayerLoaded( new PlayerViewModel( response.Content ) ); }, callback );
 		}
@@ -45,9 +45,9 @@ namespace HeartsTracker.Core.DataSources.Players
 		{
 			QueryParameters queryParams = new QueryParameters( );
 
-			ResponseWrapper<PlayerListItemResponse> response = await SafeCallApi( ( ) => _api.CreatePlayer( player, queryParams ) );
+			ResponseWrapper<int> response = await SafeCallApi( ( ) => _api.CreatePlayer( player, queryParams ) );
 
-			HandleResponse( response, ( ) => { callback.OnPlayerAdded( new PlayerListItemViewModel( response.Content ) ); }, callback );
+			HandleResponse( response, ( ) => { callback.OnPlayerAdded( new PlayerListItemViewModel( ) ); }, callback );
 		}
 	}
 }

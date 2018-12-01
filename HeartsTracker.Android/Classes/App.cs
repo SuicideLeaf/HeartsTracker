@@ -26,7 +26,7 @@ namespace HeartsTracker.Android.Classes
 
 			Container = new UnityContainer( );
 
-			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.1.66:54430/" ) );
+			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.1.73:54430/" ) );
 			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>( "PlayerApiDataSource" );
 			Container.RegisterType<IGetPlayersCallback, PlayersViewCallback>( );
 			Container.RegisterType<IGetPlayerCallback, PlayerViewCallback>( );

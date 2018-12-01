@@ -15,10 +15,10 @@ namespace HeartsTracker.Core.Interfaces
 		Task<PlayerListResponse> GetPlayers( PlayersQueryParameters queryParams );
 
 		[Get( "/api/players/{playerId}" )]
-		Task<UpdatePlayerRequest> GetPlayer( int playerId, QueryParameters queryParams );
+		Task<PlayerResponse> GetPlayer( int playerId, QueryParameters queryParams );
 
 		[Post( "/api/players/create" )]
-		Task<PlayerListItemResponse> CreatePlayer( [Body]CreatePlayerRequest player, QueryParameters queryParams );
+		Task<int> CreatePlayer( [Body]CreatePlayerRequest player, QueryParameters queryParams );
 
 		[Put( "/api/players/update/{playerId}" )]
 		Task<UpdatePlayerRequest> UpdatePlayer( int playerId, QueryParameters queryParams );

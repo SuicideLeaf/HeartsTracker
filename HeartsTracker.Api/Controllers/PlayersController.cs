@@ -43,7 +43,7 @@ namespace HeartsTracker.Api.Controllers
 		}
 
 		[HttpPost( "create" )]
-		[ProducesResponseType( 201 )]
+		[ProducesResponseType( 200 )]
 		public IActionResult Create( [FromBody]CreatePlayerRequest request )
 		{
 			if ( !Validate( ModelState, request ) )
@@ -53,7 +53,7 @@ namespace HeartsTracker.Api.Controllers
 
 			var playerId = _playerService.Create( Mapper.Map<Player>( request ) );
 
-			return Created( new Uri( $"api/players/{playerId}" ), playerId );
+			return Ok( playerId );
 		}
 
 		[HttpGet( "{id}" )]
