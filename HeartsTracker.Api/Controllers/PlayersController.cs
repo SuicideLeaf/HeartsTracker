@@ -83,7 +83,10 @@ namespace HeartsTracker.Api.Controllers
 				return BadRequest( ModelState );
 			}
 
-			_playerService.Update( Mapper.Map<Player>( request ) );
+			var playerToUpdate = Mapper.Map<Player>( request );
+			playerToUpdate.Id = id;
+
+			_playerService.Update( playerToUpdate );
 
 			return Ok( );
 		}
