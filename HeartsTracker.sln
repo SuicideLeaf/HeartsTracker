@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Shared", "Hea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTracker.Tests", "HeartsTracker.Tests", "{55CE91C5-2247-47C4-B040-56F95EF4B7E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartsTracker.Api.Tests", "HeartsTracker.Api.Tests\HeartsTracker.Api.Tests.csproj", "{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{99BCED95-A36C-4903-B8B1-BA2F6FF577F9} = {7A766459-1203-4361-A391-42139F4479F6}
 		{F40C505B-A0C5-422F-B552-0356CA6CF320} = {7A766459-1203-4361-A391-42139F4479F6}
 		{1F7BA612-73C0-4724-B2AC-98EAA942C1DE} = {37B88049-0157-453B-B37D-F4CF39E51A75}
+		{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437} = {55CE91C5-2247-47C4-B040-56F95EF4B7E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D35EEDA-7638-455F-B6D3-8D369D732484}
