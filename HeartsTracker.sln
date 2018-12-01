@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTracker.Server", "Hea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTracker.ServerClient", "HeartsTracker.ServerClient", "{37B88049-0157-453B-B37D-F4CF39E51A75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartsTracker.Shared", "HeartsTracker.Shared\HeartsTracker.Shared.csproj", "{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Shared", "HeartsTracker.Shared\HeartsTracker.Shared.csproj", "{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTracker.Tests", "HeartsTracker.Tests", "{55CE91C5-2247-47C4-B040-56F95EF4B7E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -27,6 +27,12 @@ namespace HeartsTracker.Api.Services.Interfaces
 		List<PlayerListItem> GetList( Enums.ActiveStatus activeStatus );
 
 		/// <summary>
+		/// Checks whether or not the specified <paramref name="playerName"/> is already in use.
+		/// </summary>
+		/// <param name="playerName"></param>
+		bool IsPlayernameUnique( string playerName );
+
+		/// <summary>
 		/// Archives a <see cref="Dal.Entities.Player"/> by setting the <see cref="Dal.Entities.Player.IsActive"/> to true
 		/// </summary>
 		void UnArchive( int playerId );

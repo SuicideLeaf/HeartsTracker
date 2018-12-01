@@ -52,10 +52,15 @@ namespace HeartsTracker.Api.Services
 		{
 			var players = Players
 				.ByActiveStatus( activeStatus )
-				.ProjectTo<PlayerListItem>( )
+				.ProjectTo<PlayerListItem>( Mapper.ConfigurationProvider )
 				.ToList( );
 
 			return players;
+		}
+
+		public bool IsPlayernameUnique( string playerName )
+		{
+			return !Players.Any( p => p.PlayerName == playerName );
 		}
 
 		public void UnArchive( int playerId )
