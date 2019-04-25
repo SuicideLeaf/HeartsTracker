@@ -13,7 +13,7 @@ namespace HeartsTracker.Core.Callbacks.Games
 			_newGameView = newGameView;
 		}
 
-		public void OnDataError( Enums.DataError dataError )
+		public void OnDataError( Enums.DataError dataError, string content )
 		{
 			throw new NotImplementedException( );
 		}

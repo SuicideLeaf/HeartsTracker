@@ -18,7 +18,7 @@ namespace HeartsTracker.Core.Callbacks.Players
 			ProcessPlayer( player );
 		}
 
-		public void OnDataError( Enums.DataError dataError )
+		public void OnDataError( Enums.DataError dataError, string content )
 		{
 			_playerView.ShowDataError( dataError );
 		}

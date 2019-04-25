@@ -27,11 +27,13 @@ namespace HeartsTracker.Api.Controllers
 
 		[HttpGet( "" )]
 		[ProducesResponseType( 200 )]
-		public ActionResult<PlayerListResponse> All( bool? isActive )
+		public IActionResult All( bool? isActive )
 		{
 			var players = _playerService.GetList( isActive.ToActiveStatus( ) );
 
-			return new PlayerListResponse( Mapper.Map<List<PlayerListItemResponse>>( players ) );
+			var response = new PlayerListResponse( Mapper.Map<List<PlayerListItemResponse>>( players ) );
+
+			return Ok( response );
 		}
 
 		[HttpPut( "archive/{id}" )]
@@ -46,7 +48,7 @@ namespace HeartsTracker.Api.Controllers
 		[ProducesResponseType( 200 )]
 		public IActionResult Create( [FromBody]CreatePlayerRequest request )
 		{
-			if ( !Validate( ModelState, request ) )
+			if ( !IsPlayerNameValid( ModelState, nameof( request.PlayerName ), request.PlayerName ) )
 			{
 				return BadRequest( ModelState );
 			}
@@ -78,7 +80,7 @@ namespace HeartsTracker.Api.Controllers
 		[ProducesResponseType( 200 )]
 		public IActionResult Update( int id, [FromBody]UpdatePlayerRequest request )
 		{
-			if ( !Validate( ModelState, request ) )
+			if ( !IsPlayerNameValid( ModelState, nameof( request.PlayerName ), request.PlayerName ) )
 			{
 				return BadRequest( ModelState );
 			}
@@ -95,21 +97,11 @@ namespace HeartsTracker.Api.Controllers
 
 		#region Validation
 
-		private bool Validate( ModelStateDictionary modelState, CreatePlayerRequest request )
+		private bool IsPlayerNameValid( ModelStateDictionary modelState, string keyName, string playerName )
 		{
-			if ( !_playerService.IsPlayernameUnique( request.PlayerName ) )
+			if ( !_playerService.IsPlayerNameUnique( playerName ) )
 			{
-				modelState.AddModelError( nameof( request.PlayerName ), "This player name is already taken. Please choose a different name." );
-			}
-
-			return modelState.IsValid;
-		}
-
-		private bool Validate( ModelStateDictionary modelState, UpdatePlayerRequest request )
-		{
-			if ( !_playerService.IsPlayernameUnique( request.PlayerName ) )
-			{
-				modelState.AddModelError( nameof( request.PlayerName ), "This player name is already taken. Please choose a different name." );
+				modelState.AddModelError( keyName, "This player name is already taken. Please choose a different name." );
 			}
 
 			return modelState.IsValid;

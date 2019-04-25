@@ -4,29 +4,15 @@ using HeartsTracker.Core.Views.Players;
 
 namespace HeartsTracker.Core.Callbacks.Players
 {
-	public class PlayersViewCallback : IGetPlayersCallback
+	public class PlayersViewCallback : BaseCallback<IPlayersView>, IGetPlayersCallback
 	{
-		private readonly IPlayersView _playersView;
-
-		public PlayersViewCallback( IPlayersView playersView )
+		public PlayersViewCallback( IPlayersView playersView ) : base( playersView )
 		{
-			_playersView = playersView;
 		}
 
 		public void OnPlayersLoaded( PlayerListViewModel playerList )
 		{
-			ProcessPlayers( playerList );
-		}
-
-		public void OnDataError( Enums.DataError dataError )
-		{
-			_playersView.ShowDataError( dataError );
-		}
-
-		private void ProcessPlayers( PlayerListViewModel playerList )
-		{
-			// Show the list of tasks
-			_playersView.ShowPlayers( playerList );
+			View.ShowPlayers( playerList );
 		}
 	}
 }

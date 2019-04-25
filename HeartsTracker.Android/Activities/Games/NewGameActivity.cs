@@ -16,12 +16,12 @@ namespace HeartsTracker.Android.Activities.Games
 			App.Container.RegisterInstance<INewGameView>( this );
 		}
 
-		public override void FindViews()
+		public void FindViews()
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void SetupViews()
+		public void SetupViews()
 		{
 			throw new NotImplementedException();
 		}

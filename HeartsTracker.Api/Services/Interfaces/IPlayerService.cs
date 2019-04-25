@@ -30,7 +30,7 @@ namespace HeartsTracker.Api.Services.Interfaces
 		/// Checks whether or not the specified <paramref name="playerName"/> is already in use.
 		/// </summary>
 		/// <param name="playerName"></param>
-		bool IsPlayernameUnique( string playerName );
+		bool IsPlayerNameUnique( string playerName );
 
 		/// <summary>
 		/// Archives a <see cref="Dal.Entities.Player"/> by setting the <see cref="Dal.Entities.Player.IsActive"/> to true

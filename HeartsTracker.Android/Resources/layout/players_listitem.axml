@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/players_listitem_container_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 	<TextView
         android:id="@+id/players_listitem_textview_name"
-		android:layout_width="0dp"
+		  android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Player Name"
-        android:textScaleX="1.2"
-        android:textSize="36sp"
-        android:textStyle="bold"
+		  style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_margin="8dp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintBottom_toTopOf="@+id/players_listitem_view_colour"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/players_listitem_view_colour"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-	<View android:id="@+id/players_listitem_view_colour"
-		android:layout_width="0dp"
-        android:layout_height="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/players_listitem_textview_name"/>
+	<View
+    android:id="@+id/players_listitem_view_colour"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_margin="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@+id/players_listitem_textview_name"
+    app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

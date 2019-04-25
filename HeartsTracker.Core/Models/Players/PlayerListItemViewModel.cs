@@ -18,5 +18,12 @@ namespace HeartsTracker.Core.Models.Players
 			PlayerName = playerListItem.PlayerName;
 			Colour = playerListItem.Colour;
 		}
+
+		public PlayerListItemViewModel( int id, string playerName, string colour )
+		{
+			Id = id;
+			PlayerName = playerName;
+			Colour = colour;
+		}
 	}
 }

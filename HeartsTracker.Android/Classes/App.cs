@@ -4,10 +4,8 @@ using Android.Runtime;
 using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.DataSources.Players;
 using HeartsTracker.Core.Interfaces;
-using HeartsTracker.Core.Repositories.Players;
 using Refit;
 using Unity;
-using Unity.Injection;
 
 namespace HeartsTracker.Android.Classes
 {
@@ -26,12 +24,11 @@ namespace HeartsTracker.Android.Classes
 
 			Container = new UnityContainer( );
 
-			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.1.73:54430/" ) );
-			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>( "PlayerApiDataSource" );
+			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.20.9:54430/" ) );
+			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>( );
 			Container.RegisterType<IGetPlayersCallback, PlayersViewCallback>( );
 			Container.RegisterType<IGetPlayerCallback, PlayerViewCallback>( );
 			Container.RegisterType<IAddPlayerCallback, AddPlayerViewCallback>( );
-			Container.RegisterType<IPlayerDataSource, PlayerRepository>( new InjectionConstructor( new ResolvedParameter<PlayerApiDataSource>( "PlayerApiDataSource" ) ) );
 		}
 	}
 }

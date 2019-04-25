@@ -6,7 +6,6 @@ using HeartsTracker.Api.Extensions;
 using HeartsTracker.Api.Services.Interfaces;
 using HeartsTracker.Dal.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,7 +60,7 @@ namespace HeartsTracker.Api.Services
 			return players;
 		}
 
-		public bool IsPlayernameUnique( string playerName )
+		public bool IsPlayerNameUnique( string playerName )
 		{
 			return !Players.Any( p => p.PlayerName == playerName );
 		}

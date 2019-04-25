@@ -18,7 +18,7 @@ namespace HeartsTracker.Core.Callbacks.Players
 			_addPlayerView.FinishActivity( playerListItem );
 		}
 
-		public void OnDataError( Enums.DataError dataError )
+		public void OnDataError( Enums.DataError dataError, string content )
 		{
 			_addPlayerView.ShowDataError( dataError );
 		}

@@ -1,9 +1,13 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.Constraints;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -48,6 +52,7 @@ namespace HeartsTracker.Android.Activities.Players
 		protected override async void OnResume( )
 		{
 			base.OnResume( );
+
 			await Presenter.Start( );
 		}
 
@@ -61,7 +66,7 @@ namespace HeartsTracker.Android.Activities.Players
 			}
 		}
 
-		public override void FindViews( )
+		public void FindViews( )
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
 			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
@@ -69,16 +74,18 @@ namespace HeartsTracker.Android.Activities.Players
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		public override void SetupViews( )
+		public void SetupViews( )
 		{
-			_playersAdapter = new PlayersAdapter( );
+			_playersAdapter = new PlayersAdapter( this );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
 			{
 				PlayerListItemViewModel playerListItem = _playersAdapter.GetPlayer( pos );
 				LoadPlayerDetailsScreen( playerListItem.Id );
 			};
+
 			_recyclerView.SetLayoutManager( new LinearLayoutManager( this ) );
 			_recyclerView.SetAdapter( _playersAdapter );
+			_recyclerView.AddItemDecoration( new DividerItemDecoration( this, DividerItemDecoration.Vertical ) );
 
 			_swipeRefreshLayout.Refresh += async ( sender, e ) =>
 			{
@@ -115,6 +122,7 @@ namespace HeartsTracker.Android.Activities.Players
 		public void ShowPlayers( PlayerListViewModel playerList )
 		{
 			_playersAdapter.ReplaceData( playerList );
+
 			ToggleRefreshing( false );
 			ToggleRetryOverlay( false );
 			ToggleLoadingOverlay( false );

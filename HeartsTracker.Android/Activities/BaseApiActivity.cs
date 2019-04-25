@@ -14,10 +14,6 @@ namespace HeartsTracker.Android.Activities
 
 		public abstract void RegisterView( );
 
-		public abstract void FindViews( );
-
-		public abstract void SetupViews( );
-
 		public abstract void ShowDataError( Enums.DataError error );
 
 		public void SetPresenter( )

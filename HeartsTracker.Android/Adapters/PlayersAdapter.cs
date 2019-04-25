@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using HeartsTracker.Core.Models.Players;
@@ -7,12 +8,14 @@ namespace HeartsTracker.Android.Adapters
 {
 	public class PlayersAdapter : RecyclerView.Adapter
 	{
+		private readonly Context _context;
 		private PlayerListViewModel _playerList;
 
 		public EventHandler<int> PlayerClicked { get; set; }
 
-		public PlayersAdapter( )
+		public PlayersAdapter( Context context )
 		{
+			_context = context;
 			_playerList = new PlayerListViewModel( );
 		}
 
@@ -36,7 +39,7 @@ namespace HeartsTracker.Android.Adapters
 			View view = LayoutInflater.From( parent.Context )
 				.Inflate( Resource.Layout.players_listitem, parent, false );
 
-			return new PlayerListItemViewHolder( view, OnClick );
+			return new PlayerListItemViewHolder( _context, view, OnClick );
 		}
 
 		public PlayerListItemViewModel GetPlayer( int position )

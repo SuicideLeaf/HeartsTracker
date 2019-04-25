@@ -45,7 +45,7 @@ namespace HeartsTracker.Android.Activities.Players
 			await Presenter.Start( );
 		}
 
-		public override void FindViews( )
+		public void FindViews( )
 		{
 			_playerNameEditText = FindViewById<EditText>( Resource.Id.addplayer_edittext_playername );
 			_firstNameEditText = FindViewById<EditText>( Resource.Id.addplayer_edittext_firstname );
@@ -53,7 +53,7 @@ namespace HeartsTracker.Android.Activities.Players
 			_addButton = FindViewById<Button>( Resource.Id.addplayer_button_add );
 		}
 
-		public override void SetupViews( )
+		public void SetupViews( )
 		{
 			_addButton.Click += async ( s, e ) => { await AddButtonOnClick( ); };
 		}

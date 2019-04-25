@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.Interfaces;
+using HeartsTracker.Core.Models;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.QueryParams.Players;
@@ -22,32 +23,38 @@ namespace HeartsTracker.Core.DataSources.Players
 		{
 			PlayersQueryParameters queryParams = new PlayersQueryParameters( true );
 
-			ResponseWrapper<PlayerListResponse> response = await SafeCallApi( ( ) => _api.GetPlayers( queryParams ) );
+			Response<PlayerListResponse> response = await RequestAsync( ( ) => _api.GetPlayers( queryParams ) );
 
-			HandleResponse( response, ( ) =>
+			HandleResponse( callback, response, ( ) =>
 			{
-				PlayerListViewModel playerListViewModel = new PlayerListViewModel( response.Content );
+				PlayerListViewModel playerListViewModel = new PlayerListViewModel( response.Data );
 				playerListViewModel.SortByNameAsc( );
 				callback.OnPlayersLoaded( playerListViewModel );
-			}, callback );
+			} );
 		}
 
 		public async Task GetPlayer( IGetPlayerCallback callback, int playerId )
 		{
 			QueryParameters queryParams = new QueryParameters( );
 
-			ResponseWrapper<PlayerResponse> response = await SafeCallApi( ( ) => _api.GetPlayer( playerId, queryParams ) );
+			Response<PlayerResponse> response = await RequestAsync( ( ) => _api.GetPlayer( playerId, queryParams ) );
 
-			HandleResponse( response, ( ) => { callback.OnPlayerLoaded( new PlayerViewModel( response.Content ) ); }, callback );
+			HandleResponse( callback, response, ( ) =>
+			{
+				callback.OnPlayerLoaded( new PlayerViewModel( response.Data ) );
+			} );
 		}
 
 		public async Task AddPlayer( CreatePlayerRequest player, IAddPlayerCallback callback )
 		{
 			QueryParameters queryParams = new QueryParameters( );
 
-			ResponseWrapper<int> response = await SafeCallApi( ( ) => _api.CreatePlayer( player, queryParams ) );
+			Response<int> response = await RequestAsync( ( ) => _api.CreatePlayer( player, queryParams ) );
 
-			HandleResponse( response, ( ) => { callback.OnPlayerAdded( new PlayerListItemViewModel( ) ); }, callback );
+			HandleResponse( callback, response, ( ) =>
+			{
+				callback.OnPlayerAdded( new PlayerListItemViewModel( response.Data, player.PlayerName, player.Colour ) );
+			} );
 		}
 	}
 }
