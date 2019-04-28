@@ -11,24 +11,24 @@ namespace HeartsTracker.Android.Activities.Games
 	[Activity( Label = "New Game" )]
 	public class NewGameActivity : BaseApiActivity<NewGamePresenter>, INewGameView
 	{
-		public override void RegisterView()
+		public override void RegisterView( )
 		{
 			App.Container.RegisterInstance<INewGameView>( this );
 		}
 
-		public void FindViews()
+		public void FindViews( )
 		{
-			throw new NotImplementedException();
+			throw new NotImplementedException( );
 		}
 
-		public void SetupViews()
+		public void SetupViews( )
 		{
-			throw new NotImplementedException();
+			throw new NotImplementedException( );
 		}
 
-		public override void ShowDataError(Enums.DataError error)
+		public override void ShowError( string error )
 		{
-			throw new NotImplementedException();
+			throw new NotImplementedException( );
 		}
 	}
 }

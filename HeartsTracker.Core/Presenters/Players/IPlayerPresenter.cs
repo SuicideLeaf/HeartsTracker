@@ -2,9 +2,8 @@
 
 namespace HeartsTracker.Core.Presenters.Players
 {
-	public interface IPlayerPresenter : IBasePresenter
+	public interface IPlayerPresenter
 	{
-		Task LoadPlayer( );
 		Task LoadPlayer( bool isRefreshing );
 	}
 }

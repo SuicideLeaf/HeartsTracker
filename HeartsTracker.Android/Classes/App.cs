@@ -1,7 +1,6 @@
 ﻿using System;
 using Android.App;
 using Android.Runtime;
-using HeartsTracker.Core.Callbacks.Players;
 using HeartsTracker.Core.DataSources.Players;
 using HeartsTracker.Core.Interfaces;
 using Refit;
@@ -26,9 +25,6 @@ namespace HeartsTracker.Android.Classes
 
 			Container.RegisterInstance( RestService.For<IApi>( "http://192.168.20.9:54430/" ) );
 			Container.RegisterType<IPlayerDataSource, PlayerApiDataSource>( );
-			Container.RegisterType<IGetPlayersCallback, PlayersViewCallback>( );
-			Container.RegisterType<IGetPlayerCallback, PlayerViewCallback>( );
-			Container.RegisterType<IAddPlayerCallback, AddPlayerViewCallback>( );
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace HeartsTracker.Android.Activities.Players
 		private TextView _lastNameTextView;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
-		protected override void OnCreate( Bundle savedInstanceState )
+		protected override async void OnCreate( Bundle savedInstanceState )
 		{
 			PlayerId = Intent.GetIntExtra( "PlayerId", 0 );
 
@@ -28,28 +28,13 @@ namespace HeartsTracker.Android.Activities.Players
 			FindViews( );
 
 			SetupViews( );
+
+			await Presenter.LoadPlayer( false );
 		}
 
-		protected override async void OnResume( )
+		public override void ShowError( string error )
 		{
-			base.OnResume( );
-
-			await Presenter.Start( );
-		}
-
-		public override void ShowDataError( Enums.DataError error )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( false );
-			switch ( error )
-			{
-				case Enums.DataError.NotFound:
-					ToggleRetryOverlay( true, "This player could not be found... Tap to retry" );
-					break;
-				default:
-					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
-					break;
-			}
+			ToggleRetryOverlay( true, error );
 		}
 
 		public void FindViews( )

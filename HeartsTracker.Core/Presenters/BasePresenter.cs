@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Views;
+﻿using HeartsTracker.Core.Views;
 
 namespace HeartsTracker.Core.Presenters
 {
-	public abstract class BasePresenter : IBasePresenter
+	public abstract class BasePresenter
 	{
 		public IBaseView View { get; set; }
-		public abstract Task Start( );
 
 		protected internal BasePresenter( IBaseView view )
 		{

@@ -18,6 +18,8 @@ namespace HeartsTracker.Core.Models.Players
 			Players = playerList.Players
 				.Select( p => new PlayerListItemViewModel( p ) )
 				.ToList( );
+
+			SortByNameAsc( );
 		}
 
 		public void SortByNameAsc( )

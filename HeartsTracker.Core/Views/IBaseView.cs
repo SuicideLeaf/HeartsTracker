@@ -4,7 +4,7 @@ namespace HeartsTracker.Core.Views
 {
 	public interface IBaseView
 	{
-		void ShowDataError( Enums.DataError error );
+		void ShowError( string errorMessage );
 		void SetPresenter( );
 	}
 }

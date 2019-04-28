@@ -39,12 +39,6 @@ namespace HeartsTracker.Android.Activities.Players
 			SetPresenter( );
 		}
 
-		protected override async void OnResume( )
-		{
-			base.OnResume( );
-			await Presenter.Start( );
-		}
-
 		public void FindViews( )
 		{
 			_playerNameEditText = FindViewById<EditText>( Resource.Id.addplayer_edittext_playername );
@@ -63,7 +57,7 @@ namespace HeartsTracker.Android.Activities.Players
 			await Presenter.AddPlayer( );
 		}
 
-		public override void ShowDataError( Enums.DataError error )
+		public override void ShowError( string error )
 		{
 			throw new NotImplementedException( );
 		}

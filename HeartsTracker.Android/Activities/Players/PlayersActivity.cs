@@ -1,19 +1,14 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Constraints;
 using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using HeartsTracker.Android.Adapters;
 using HeartsTracker.Android.Classes;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
 using HeartsTracker.Core.Views.Players;
@@ -38,7 +33,7 @@ namespace HeartsTracker.Android.Activities.Players
 			App.Container.RegisterInstance<IPlayersView>( this );
 		}
 
-		protected override void OnCreate( Bundle savedInstanceState )
+		protected override async void OnCreate( Bundle savedInstanceState )
 		{
 			base.OnCreate( savedInstanceState );
 
@@ -47,13 +42,8 @@ namespace HeartsTracker.Android.Activities.Players
 			FindViews( );
 
 			SetupViews( );
-		}
 
-		protected override async void OnResume( )
-		{
-			base.OnResume( );
-
-			await Presenter.Start( );
+			await Presenter.LoadPlayers( false );
 		}
 
 		protected override void OnActivityResult( int requestCode, Result resultCode, Intent data )
@@ -66,7 +56,7 @@ namespace HeartsTracker.Android.Activities.Players
 			}
 		}
 
-		public void FindViews( )
+		private void FindViews( )
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
 			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
@@ -74,7 +64,7 @@ namespace HeartsTracker.Android.Activities.Players
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		public void SetupViews( )
+		private void SetupViews( )
 		{
 			_playersAdapter = new PlayersAdapter( this );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
@@ -103,20 +93,9 @@ namespace HeartsTracker.Android.Activities.Players
 			StartActivityForResult( intent, AddPlayerRequestCode );
 		}
 
-		public override void ShowDataError( Enums.DataError error )
+		public override void ShowError( string error )
 		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( false );
-			switch ( error )
-			{
-				case Enums.DataError.NotFound:
-					ToggleRetryOverlay( true, "No players found... Tap to retry" );
-					break;
-
-				default:
-					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
-					break;
-			}
+			ToggleRetryOverlay( true, error );
 		}
 
 		public void ShowPlayers( PlayerListViewModel playerList )
