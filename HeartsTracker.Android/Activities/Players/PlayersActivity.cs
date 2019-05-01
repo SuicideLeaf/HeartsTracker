@@ -18,7 +18,7 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Players", MainLauncher = true )]
-	public class PlayersActivity : BaseApiActivity<PlayersPresenter>, IPlayersView
+	public class PlayersActivity : DataSourceActivity<PlayersPresenter>, IPlayersView
 	{
 		private const int AddPlayerRequestCode = 1;
 
@@ -83,8 +83,6 @@ namespace HeartsTracker.Android.Activities.Players
 			};
 
 			_fabAddPlayer.Click += FabAddPlayerOnClick;
-
-			SetPresenter( );
 		}
 
 		private void FabAddPlayerOnClick( object sender, EventArgs eventArgs )
@@ -93,40 +91,9 @@ namespace HeartsTracker.Android.Activities.Players
 			StartActivityForResult( intent, AddPlayerRequestCode );
 		}
 
-		public override void ShowError( string error )
-		{
-			ToggleRetryOverlay( true, error );
-		}
-
 		public void ShowPlayers( PlayerListViewModel playerList )
 		{
 			_playersAdapter.ReplaceData( playerList );
-
-			ToggleRefreshing( false );
-			ToggleRetryOverlay( false );
-			ToggleLoadingOverlay( false );
-		}
-
-		public void ToggleRefreshing( bool active )
-		{
-			_swipeRefreshLayout.Refreshing = active;
-		}
-
-		public void ToggleLoadingOverlay( bool active )
-		{
-			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-		}
-
-		public void ToggleRetryOverlay( bool active, string message = "" )
-		{
-			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-		}
-
-		public void ShowLoadingOverlay( )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( true );
-			ToggleRetryOverlay( false );
 		}
 
 		public void LoadPlayerDetailsScreen( int playerId )

@@ -6,20 +6,40 @@ namespace HeartsTracker.Core.Extensions
 {
 	public static class EitherExtensions
 	{
-		public static Either<TL, string> ConfigureNotFound<TL>( this Either<TL, ErrorResponse> either, Func<TL, bool> hasDataFunc, string notFoundMessage )
+		/// <summary>		
+		/// Transforms an either of error type <see cref="ErrorResponse"/>, into error type <see cref="string"/> by doing the following:		
+		/// <para/><para/>
+		/// Validates the left data, returns the specified <paramref name="errorMessage"/> if validation fails.
+		/// <para/>
+		/// Configures the right error's <see cref="Enums.DataError.NotFound"/> message, returns appropriate error message.
+		/// </summary>
+		public static Either<TL, string> ConfigureNotFound<TL>( this Either<TL, ErrorResponse> either, Func<TL, bool> hasData, string errorMessage )
 		{
 			return either.Return<Either<TL, string>>( data =>
 			{
-				if ( !hasDataFunc( data ) )
-					return notFoundMessage;
+				if ( !hasData( data ) )
+					return errorMessage;
 
 				return data;
-			}, error => error.ToErrorMessage( notFoundMessage ) );
+			}, error =>
+			{
+				error.NotFoundMessage = errorMessage;
+				return error.GetErrorMessage( );
+			} );
 		}
 
-		public static Either<TL, string> ConfigureNotFound<TL>( this Either<TL, ErrorResponse> either, string notFoundMessage )
+		/// <summary>		
+		/// Transforms an either of error type <see cref="ErrorResponse"/>, into error type <see cref="string"/> by doing the following:		
+		/// <para/><para/>
+		/// Configures the right error's <see cref="Enums.DataError.NotFound"/> message, returns appropriate error message.
+		/// </summary>
+		public static Either<TL, string> ConfigureNotFound<TL>( this Either<TL, ErrorResponse> either, string errorMessage )
 		{
-			return either.Return<Either<TL, string>>( data => data, error => error.ToErrorMessage( notFoundMessage ) );
+			return either.Return<Either<TL, string>>( data => data, error =>
+			{
+				error.NotFoundMessage = errorMessage;
+				return error.GetErrorMessage( );
+			} );
 		}
 
 		/// <summary>

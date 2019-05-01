@@ -15,7 +15,7 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Add Player" )]
-	public class AddPlayerActivity : BaseApiActivity<AddPlayerPresenter>, IAddPlayerView
+	public class AddPlayerActivity : DataSourceActivity<AddPlayerPresenter>, IAddPlayerView
 	{
 		private EditText _playerNameEditText;
 		private EditText _firstNameEditText;

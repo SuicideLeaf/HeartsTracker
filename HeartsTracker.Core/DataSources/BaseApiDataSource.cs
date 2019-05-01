@@ -1,7 +1,9 @@
 ﻿using HeartsTracker.Core.Classes;
+using HeartsTracker.Core.Extensions;
 using HeartsTracker.Core.Models;
 using Refit;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace HeartsTracker.Core.DataSources
@@ -16,11 +18,21 @@ namespace HeartsTracker.Core.DataSources
 			}
 			catch ( ApiException e )
 			{
-				return new ErrorResponse( e.Content, e.StatusCode.ToDataError( ) );
+				Enums.DataError dataError = e.StatusCode.ToDataError( );
+
+				if ( e.StatusCode.Equals( HttpStatusCode.BadRequest ) && e.Content.TryReadAsModelState( out string error ) )
+				{
+					return new ErrorResponse( dataError )
+					{
+						BadRequestMessage = error
+					};
+				}
+
+				return new ErrorResponse( dataError );
 			}
-			catch ( Exception e )
+			catch ( Exception )
 			{
-				return new ErrorResponse( string.Empty, Enums.DataError.Connection );
+				return new ErrorResponse( Enums.DataError.SomethingBroke );
 			}
 		}
 

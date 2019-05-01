@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Shared.Models.Player;
@@ -19,29 +20,38 @@ namespace HeartsTracker.Core.Models
 
 	public class ErrorResponse
 	{
-		public string Content { get; set; }
-		public Enums.DataError Error { get; set; }
+		public string NotFoundMessage { get; set; } = "Resource not found";
+		public string BadRequestMessage { get; set; } = "Request failed";
+		public string ConnectionMessage { get; set; } = "Connection Error";
+		public string SomethingBrokeMessage { get; set; } = "Something broke";
 
-		public ErrorResponse( string content, Enums.DataError error )
+		public Enums.DataError Type { get; set; }
+
+		public ErrorResponse( Enums.DataError errorType )
 		{
-			Content = content;
-			Error = error;
+			Type = errorType;
 		}
 
-		public string ToErrorMessage( string notFound )
+		public string GetErrorMessage( )
 		{
 			string error;
 
-			switch ( Error )
+			switch ( Type )
 			{
 				case Enums.DataError.None:
-					throw new ArgumentOutOfRangeException( $"{nameof( Error )} cannot be none when an {nameof( ErrorResponse )} is produced." );
+					throw new ArgumentOutOfRangeException( $"{nameof( Type )} cannot be none when an {nameof( ErrorResponse )} is produced." );
 				case Enums.DataError.NotFound:
-					error = notFound;
+					error = NotFoundMessage;
+					break;
+				case Enums.DataError.BadRequest:
+					error = BadRequestMessage;
 					break;
 				case Enums.DataError.Connection:
+					error = ConnectionMessage;
+					break;
+				case Enums.DataError.SomethingBroke:
 				default:
-					error = "Connection Error";
+					error = SomethingBrokeMessage;
 					break;
 			}
 

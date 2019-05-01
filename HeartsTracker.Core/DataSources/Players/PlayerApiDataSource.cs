@@ -10,6 +10,31 @@ using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Core.DataSources.Players
 {
+	public class PlayerRepository : IPlayerDataSource
+	{
+		private readonly IPlayerDataSource _playerApiDataSource;
+
+		public PlayerRepository( IPlayerDataSource playerApiDataSource )
+		{
+			_playerApiDataSource = playerApiDataSource;
+		}
+
+		public async Task AddPlayer( CreatePlayerRequest player )
+		{
+			await _playerApiDataSource.AddPlayer( player );
+		}
+
+		public async Task GetPlayer( int playerId )
+		{
+			await _playerApiDataSource.GetPlayer( playerId );
+		}
+
+		public async Task<Either<PlayerListResponse, ErrorResponse>> GetPlayers( )
+		{
+			return await _playerApiDataSource.GetPlayers( );
+		}
+	}
+
 	public class PlayerApiDataSource : BaseApiDataSource, IPlayerDataSource
 	{
 		private readonly IApi _api;
@@ -26,7 +51,7 @@ namespace HeartsTracker.Core.DataSources.Players
 			return await RequestAsync( ( ) => _api.GetPlayers( queryParams ) );
 		}
 
-		public async Task GetPlayer(  int playerId )
+		public async Task GetPlayer( int playerId )
 		{
 			//QueryParameters queryParams = new QueryParameters( );
 

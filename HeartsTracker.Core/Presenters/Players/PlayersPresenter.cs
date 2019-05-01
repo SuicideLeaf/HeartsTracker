@@ -28,11 +28,11 @@ namespace HeartsTracker.Core.Presenters.Players
 			}
 
 			Either<PlayerListResponse, ErrorResponse> response = await _playerRepository.GetPlayers( );
-			
+
 			response
 				.ConfigureNotFound( data => data.Players.Any( ), "No players found" )
 				.OnSuccess( data => View.ShowPlayers( new PlayerListViewModel( data ) ) )
-				.OnError( error => View.ShowError( error ) );
+				.OnError( error => { View.Error.Show( error ); } );
 
 			View.ToggleLoadingOverlay( false );
 		}

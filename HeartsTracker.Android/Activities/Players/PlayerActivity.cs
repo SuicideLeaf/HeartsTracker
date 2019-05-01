@@ -8,7 +8,7 @@ using HeartsTracker.Core.Presenters.Players;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Player Details" )]
-	public partial class PlayerActivity : BaseApiActivity<PlayerPresenter>
+	public partial class PlayerActivity : DataSourceActivity<PlayerPresenter>
 	{
 		public int PlayerId { get; set; }
 

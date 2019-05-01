@@ -9,7 +9,7 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Games
 {
 	[Activity( Label = "New Game" )]
-	public class NewGameActivity : BaseApiActivity<NewGamePresenter>, INewGameView
+	public class NewGameActivity : DataSourceActivity<NewGamePresenter>, INewGameView
 	{
 		public override void RegisterView( )
 		{
