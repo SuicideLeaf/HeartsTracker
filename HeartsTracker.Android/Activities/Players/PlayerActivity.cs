@@ -2,13 +2,12 @@
 using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Widget;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Presenters.Players;
 
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Player Details" )]
-	public partial class PlayerActivity : BaseApiActivity<PlayerPresenter>
+	public partial class PlayerActivity : DataSourceActivity<PlayerPresenter>
 	{
 		public int PlayerId { get; set; }
 
@@ -27,29 +26,14 @@ namespace HeartsTracker.Android.Activities.Players
 
 			FindViews( );
 
-			SetupViews( );
+			ConfigureRefresh( );
 		}
 
 		protected override async void OnResume( )
 		{
 			base.OnResume( );
 
-			await Presenter.Start( );
-		}
-
-		public override void ShowDataError( Enums.DataError error )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( false );
-			switch ( error )
-			{
-				case Enums.DataError.NotFound:
-					ToggleRetryOverlay( true, "This player could not be found... Tap to retry" );
-					break;
-				default:
-					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
-					break;
-			}
+			await Presenter.LoadPlayer( false );
 		}
 
 		public void FindViews( )
@@ -60,14 +44,12 @@ namespace HeartsTracker.Android.Activities.Players
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		public void SetupViews( )
+		public void ConfigureRefresh( )
 		{
 			_swipeRefreshLayout.Refresh += async ( sender, e ) =>
 			{
 				await Presenter.LoadPlayer( true );
 			};
-
-			SetPresenter( );
 		}
 	}
 }

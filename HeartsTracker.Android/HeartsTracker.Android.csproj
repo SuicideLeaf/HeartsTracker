@@ -209,7 +209,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\BaseApiActivity.cs" />
+    <Compile Include="Activities\DataSourceActivity.cs" />
     <Compile Include="Activities\Games\NewGameActivity.cs" />
     <Compile Include="Activities\Players\AddPlayerActivity.cs" />
     <Compile Include="Activities\Players\PlayerActivity.view.cs" />

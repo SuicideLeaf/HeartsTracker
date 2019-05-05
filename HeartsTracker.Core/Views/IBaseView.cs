@@ -1,10 +1,10 @@
-﻿using HeartsTracker.Core.Classes;
+﻿using HeartsTracker.Core.Interfaces;
 
 namespace HeartsTracker.Core.Views
 {
 	public interface IBaseView
 	{
-		void ShowDataError( Enums.DataError error );
-		void SetPresenter( );
+		ILoadingView Loading { get; set; }
+		IErrorView Error { get; set; }
 	}
 }

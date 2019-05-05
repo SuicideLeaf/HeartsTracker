@@ -1,19 +1,12 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Constraints;
 using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
-using Android.Views;
 using HeartsTracker.Android.Adapters;
 using HeartsTracker.Android.Classes;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
 using HeartsTracker.Core.Views.Players;
@@ -23,13 +16,12 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Players", MainLauncher = true )]
-	public class PlayersActivity : BaseApiActivity<PlayersPresenter>, IPlayersView
+	public class PlayersActivity : DataSourceActivity<PlayersPresenter>, IPlayersView
 	{
 		private const int AddPlayerRequestCode = 1;
 
 		private PlayersAdapter _playersAdapter;
 		private RecyclerView _recyclerView;
-		private ConstraintLayout _playersView;
 		private FloatingActionButton _fabAddPlayer;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
@@ -38,7 +30,7 @@ namespace HeartsTracker.Android.Activities.Players
 			App.Container.RegisterInstance<IPlayersView>( this );
 		}
 
-		protected override void OnCreate( Bundle savedInstanceState )
+		protected override async void OnCreate( Bundle savedInstanceState )
 		{
 			base.OnCreate( savedInstanceState );
 
@@ -47,13 +39,8 @@ namespace HeartsTracker.Android.Activities.Players
 			FindViews( );
 
 			SetupViews( );
-		}
 
-		protected override async void OnResume( )
-		{
-			base.OnResume( );
-
-			await Presenter.Start( );
+			await Presenter.LoadPlayers( false );
 		}
 
 		protected override void OnActivityResult( int requestCode, Result resultCode, Intent data )
@@ -66,15 +53,14 @@ namespace HeartsTracker.Android.Activities.Players
 			}
 		}
 
-		public void FindViews( )
+		private void FindViews( )
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
-			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
 			_fabAddPlayer = FindViewById<FloatingActionButton>( Resource.Id.players_fab_addplayer );
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		public void SetupViews( )
+		private void SetupViews( )
 		{
 			_playersAdapter = new PlayersAdapter( this );
 			_playersAdapter.PlayerClicked += ( sender, pos ) =>
@@ -93,8 +79,6 @@ namespace HeartsTracker.Android.Activities.Players
 			};
 
 			_fabAddPlayer.Click += FabAddPlayerOnClick;
-
-			SetPresenter( );
 		}
 
 		private void FabAddPlayerOnClick( object sender, EventArgs eventArgs )
@@ -103,51 +87,9 @@ namespace HeartsTracker.Android.Activities.Players
 			StartActivityForResult( intent, AddPlayerRequestCode );
 		}
 
-		public override void ShowDataError( Enums.DataError error )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( false );
-			switch ( error )
-			{
-				case Enums.DataError.NotFound:
-					ToggleRetryOverlay( true, "No players found... Tap to retry" );
-					break;
-
-				default:
-					ToggleRetryOverlay( true, "Something went wrong... Tap to retry" );
-					break;
-			}
-		}
-
 		public void ShowPlayers( PlayerListViewModel playerList )
 		{
 			_playersAdapter.ReplaceData( playerList );
-
-			ToggleRefreshing( false );
-			ToggleRetryOverlay( false );
-			ToggleLoadingOverlay( false );
-		}
-
-		public void ToggleRefreshing( bool active )
-		{
-			_swipeRefreshLayout.Refreshing = active;
-		}
-
-		public void ToggleLoadingOverlay( bool active )
-		{
-			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-		}
-
-		public void ToggleRetryOverlay( bool active, string message = "" )
-		{
-			_playersView.Visibility = active ? ViewStates.Gone : ViewStates.Visible;
-		}
-
-		public void ShowLoadingOverlay( )
-		{
-			ToggleRefreshing( false );
-			ToggleLoadingOverlay( true );
-			ToggleRetryOverlay( false );
 		}
 
 		public void LoadPlayerDetailsScreen( int playerId )

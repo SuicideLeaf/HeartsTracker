@@ -1,16 +1,33 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using HeartsTracker.Core.Views;
 
 namespace HeartsTracker.Core.Presenters
 {
-	public abstract class BasePresenter : IBasePresenter
+	public abstract class BasePresenter
 	{
 		public IBaseView View { get; set; }
-		public abstract Task Start( );
 
 		protected internal BasePresenter( IBaseView view )
 		{
 			View = view;
+		}
+
+		public async Task<T> RequestAsync<T>( bool showLoading, Func<Task<T>> requestAsync )
+		{
+			if ( showLoading )
+			{
+				View.Loading.Show( );
+			}
+
+			T response = await requestAsync( );
+
+			if ( showLoading )
+			{
+				View.Loading.Hide( );
+			}
+
+			return response;
 		}
 	}
 

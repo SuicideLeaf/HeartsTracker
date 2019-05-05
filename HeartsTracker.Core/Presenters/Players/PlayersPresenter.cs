@@ -1,40 +1,33 @@
-﻿using System.Threading.Tasks;
-using HeartsTracker.Core.Callbacks.Players;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.DataSources.Players;
+using HeartsTracker.Core.Extensions;
+using HeartsTracker.Core.Models;
+using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Views.Players;
+using HeartsTracker.Shared.Models.Player;
 
 namespace HeartsTracker.Core.Presenters.Players
 {
 	public class PlayersPresenter : BasePresenter<IPlayersView>, IPlayersPresenter
 	{
 		private readonly IPlayerDataSource _playerRepository;
-		private readonly IGetPlayersCallback _playersViewCallback;
 
-		public PlayersPresenter( IPlayerDataSource playerRepository, IPlayersView playersView, IGetPlayersCallback playersViewCallback )
+		public PlayersPresenter( IPlayerDataSource playerRepository, IPlayersView playersView )
 			: base( playersView )
 		{
 			_playerRepository = playerRepository;
-			_playersViewCallback = playersViewCallback;
-		}
-
-		public async Task LoadPlayers( )
-		{
-			await LoadPlayers( false );
 		}
 
 		public async Task LoadPlayers( bool isRefreshing )
 		{
-			if ( !isRefreshing )
-			{
-				View.ShowLoadingOverlay( );
-			}
+			Either<PlayerListResponse, ErrorResponse> response = await RequestAsync( !isRefreshing, _playerRepository.GetPlayers );
 
-			await _playerRepository.GetPlayers( _playersViewCallback );
-		}
-
-		public override async Task Start( )
-		{
-			await LoadPlayers( );
+			response
+				.ConfigureNotFound( data => data.Players.Any( ), "No players found" )
+				.OnSuccess( data => View.ShowPlayers( new PlayerListViewModel( data ) ) )
+				.OnError( error => { View.Error.Show( error ); } );
 		}
 	}
 }

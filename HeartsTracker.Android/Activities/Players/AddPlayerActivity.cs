@@ -5,7 +5,6 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using HeartsTracker.Android.Classes;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
 using HeartsTracker.Core.Views.Players;
@@ -15,7 +14,7 @@ using Unity;
 namespace HeartsTracker.Android.Activities.Players
 {
 	[Activity( Label = "Add Player" )]
-	public class AddPlayerActivity : BaseApiActivity<AddPlayerPresenter>, IAddPlayerView
+	public class AddPlayerActivity : DataSourceActivity<AddPlayerPresenter>, IAddPlayerView
 	{
 		private EditText _playerNameEditText;
 		private EditText _firstNameEditText;
@@ -34,15 +33,8 @@ namespace HeartsTracker.Android.Activities.Players
 			SetContentView( Resource.Layout.addplayer_activity );
 
 			FindViews( );
+
 			SetupViews( );
-
-			SetPresenter( );
-		}
-
-		protected override async void OnResume( )
-		{
-			base.OnResume( );
-			await Presenter.Start( );
 		}
 
 		public void FindViews( )
@@ -61,11 +53,6 @@ namespace HeartsTracker.Android.Activities.Players
 		private async Task AddButtonOnClick( )
 		{
 			await Presenter.AddPlayer( );
-		}
-
-		public override void ShowDataError( Enums.DataError error )
-		{
-			throw new NotImplementedException( );
 		}
 
 		public string PlayerName => _playerNameEditText.Text;
