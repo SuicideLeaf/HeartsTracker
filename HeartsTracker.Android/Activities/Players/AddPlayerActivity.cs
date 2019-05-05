@@ -5,7 +5,6 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using HeartsTracker.Android.Classes;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Presenters.Players;
 using HeartsTracker.Core.Views.Players;
@@ -34,9 +33,8 @@ namespace HeartsTracker.Android.Activities.Players
 			SetContentView( Resource.Layout.addplayer_activity );
 
 			FindViews( );
-			SetupViews( );
 
-			SetPresenter( );
+			SetupViews( );
 		}
 
 		public void FindViews( )
@@ -55,11 +53,6 @@ namespace HeartsTracker.Android.Activities.Players
 		private async Task AddButtonOnClick( )
 		{
 			await Presenter.AddPlayer( );
-		}
-
-		public override void ShowError( string error )
-		{
-			throw new NotImplementedException( );
 		}
 
 		public string PlayerName => _playerNameEditText.Text;

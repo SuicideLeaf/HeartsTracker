@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Support.V7.App;
 using HeartsTracker.Android.Classes;
+using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Interfaces;
 using HeartsTracker.Core.Presenters;
 using HeartsTracker.Core.Views;
@@ -12,8 +13,8 @@ namespace HeartsTracker.Android.Activities
 		where TPresenter : BasePresenter
 	{
 		public TPresenter Presenter { get; set; }
-		public ILoadingView Loading { get; set; }
-		public IErrorView Error { get; set; }
+		public ILoadingView Loading { get; set; } = new LoadingView( );
+		public IErrorView Error { get; set; } = new ErrorView( );
 		public abstract void RegisterView( );
 
 		protected override void OnCreate( Bundle savedInstanceState )

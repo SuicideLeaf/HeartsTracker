@@ -2,11 +2,9 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Support.Constraints;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
-using Android.Views;
 using HeartsTracker.Android.Adapters;
 using HeartsTracker.Android.Classes;
 using HeartsTracker.Core.Models.Players;
@@ -24,7 +22,6 @@ namespace HeartsTracker.Android.Activities.Players
 
 		private PlayersAdapter _playersAdapter;
 		private RecyclerView _recyclerView;
-		private ConstraintLayout _playersView;
 		private FloatingActionButton _fabAddPlayer;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
@@ -59,7 +56,6 @@ namespace HeartsTracker.Android.Activities.Players
 		private void FindViews( )
 		{
 			_recyclerView = FindViewById<RecyclerView>( Resource.Id.players_recyclerview );
-			_playersView = FindViewById<ConstraintLayout>( Resource.Id.players_exist_rootlayout );
 			_fabAddPlayer = FindViewById<FloatingActionButton>( Resource.Id.players_fab_addplayer );
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}

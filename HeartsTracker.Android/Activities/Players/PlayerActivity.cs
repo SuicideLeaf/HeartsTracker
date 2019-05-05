@@ -2,7 +2,6 @@
 using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Widget;
-using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Presenters.Players;
 
 namespace HeartsTracker.Android.Activities.Players
@@ -17,7 +16,7 @@ namespace HeartsTracker.Android.Activities.Players
 		private TextView _lastNameTextView;
 		private SwipeRefreshLayout _swipeRefreshLayout;
 
-		protected override async void OnCreate( Bundle savedInstanceState )
+		protected override void OnCreate( Bundle savedInstanceState )
 		{
 			PlayerId = Intent.GetIntExtra( "PlayerId", 0 );
 
@@ -27,14 +26,14 @@ namespace HeartsTracker.Android.Activities.Players
 
 			FindViews( );
 
-			SetupViews( );
-
-			await Presenter.LoadPlayer( false );
+			ConfigureRefresh( );
 		}
 
-		public override void ShowError( string error )
+		protected override async void OnResume( )
 		{
-			ToggleRetryOverlay( true, error );
+			base.OnResume( );
+
+			await Presenter.LoadPlayer( false );
 		}
 
 		public void FindViews( )
@@ -45,14 +44,12 @@ namespace HeartsTracker.Android.Activities.Players
 			_swipeRefreshLayout = FindViewById<SwipeRefreshLayout>( Resource.Id.refresh_layout );
 		}
 
-		public void SetupViews( )
+		public void ConfigureRefresh( )
 		{
 			_swipeRefreshLayout.Refresh += async ( sender, e ) =>
 			{
 				await Presenter.LoadPlayer( true );
 			};
-
-			SetPresenter( );
 		}
 	}
 }

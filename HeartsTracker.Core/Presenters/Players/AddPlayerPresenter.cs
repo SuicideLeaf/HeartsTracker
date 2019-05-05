@@ -2,6 +2,9 @@
 using HeartsTracker.Core.Views.Players;
 using HeartsTracker.Shared.Models.Player.Requests;
 using System.Threading.Tasks;
+using HeartsTracker.Core.Classes;
+using HeartsTracker.Core.Extensions;
+using HeartsTracker.Core.Models;
 
 namespace HeartsTracker.Core.Presenters.Players
 {
@@ -17,15 +20,11 @@ namespace HeartsTracker.Core.Presenters.Players
 
 		public async Task AddPlayer( )
 		{
-			CreatePlayerRequest playerToAdd = CreateAddPlayerRequestModel( );
-			await _playerRepository.AddPlayer( playerToAdd );
-		}
+			CreatePlayerRequest playerToAdd = new CreatePlayerRequest( View.PlayerName, View.FirstName, View.LastName, View.Colour );
 
-		public CreatePlayerRequest CreateAddPlayerRequestModel( )
-		{
-			CreatePlayerRequest player = new CreatePlayerRequest( View.PlayerName, View.FirstName, View.LastName, View.Colour );
+			Either<int, ErrorResponse> response = await RequestAsync( true, ( ) => _playerRepository.AddPlayer( playerToAdd ) );
 
-			return player;
+			response.OnError( error => View.Error.Show( error.GetErrorMessage( ) ) );
 		}
 	}
 }

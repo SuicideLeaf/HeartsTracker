@@ -2,7 +2,6 @@
 using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.Interfaces;
 using HeartsTracker.Core.Models;
-using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.QueryParams;
 using HeartsTracker.Core.QueryParams.Players;
 using HeartsTracker.Shared.Models.Player;
@@ -10,31 +9,6 @@ using HeartsTracker.Shared.Models.Player.Requests;
 
 namespace HeartsTracker.Core.DataSources.Players
 {
-	public class PlayerRepository : IPlayerDataSource
-	{
-		private readonly IPlayerDataSource _playerApiDataSource;
-
-		public PlayerRepository( IPlayerDataSource playerApiDataSource )
-		{
-			_playerApiDataSource = playerApiDataSource;
-		}
-
-		public async Task AddPlayer( CreatePlayerRequest player )
-		{
-			await _playerApiDataSource.AddPlayer( player );
-		}
-
-		public async Task GetPlayer( int playerId )
-		{
-			await _playerApiDataSource.GetPlayer( playerId );
-		}
-
-		public async Task<Either<PlayerListResponse, ErrorResponse>> GetPlayers( )
-		{
-			return await _playerApiDataSource.GetPlayers( );
-		}
-	}
-
 	public class PlayerApiDataSource : BaseApiDataSource, IPlayerDataSource
 	{
 		private readonly IApi _api;
@@ -51,28 +25,18 @@ namespace HeartsTracker.Core.DataSources.Players
 			return await RequestAsync( ( ) => _api.GetPlayers( queryParams ) );
 		}
 
-		public async Task GetPlayer( int playerId )
+		public async Task<Either<PlayerResponse, ErrorResponse>> GetPlayer( int playerId )
 		{
-			//QueryParameters queryParams = new QueryParameters( );
+			QueryParameters queryParams = new QueryParameters( );
 
-			//Response<PlayerResponse> response = await RequestAsyncOld( ( ) => _api.GetPlayer( playerId, queryParams ) );
-
-			//HandleResponse( callback, response, ( ) =>
-			//{
-			//	callback.OnPlayerLoaded( new PlayerViewModel( response.Data ) );
-			//} );
+			return await RequestAsync( ( ) => _api.GetPlayer( playerId, queryParams ) );
 		}
 
-		public async Task AddPlayer( CreatePlayerRequest player )
+		public async Task<Either<int, ErrorResponse>> AddPlayer( CreatePlayerRequest player )
 		{
-			//QueryParameters queryParams = new QueryParameters( );
+			QueryParameters queryParams = new QueryParameters( );
 
-			//Response<int> response = await RequestAsyncOld( ( ) => _api.CreatePlayer( player, queryParams ) );
-
-			//HandleResponse( callback, response, ( ) =>
-			//{
-			//	callback.OnPlayerAdded( new PlayerListItemViewModel( response.Data, player.PlayerName, player.Colour ) );
-			//} );
+			return await RequestAsync( ( ) => _api.CreatePlayer( player, queryParams ) );
 		}
 	}
 }

@@ -22,19 +22,12 @@ namespace HeartsTracker.Core.Presenters.Players
 
 		public async Task LoadPlayers( bool isRefreshing )
 		{
-			if ( !isRefreshing )
-			{
-				View.ShowLoadingOverlay( );
-			}
-
-			Either<PlayerListResponse, ErrorResponse> response = await _playerRepository.GetPlayers( );
+			Either<PlayerListResponse, ErrorResponse> response = await RequestAsync( !isRefreshing, _playerRepository.GetPlayers );
 
 			response
 				.ConfigureNotFound( data => data.Players.Any( ), "No players found" )
 				.OnSuccess( data => View.ShowPlayers( new PlayerListViewModel( data ) ) )
 				.OnError( error => { View.Error.Show( error ); } );
-
-			View.ToggleLoadingOverlay( false );
 		}
 	}
 }

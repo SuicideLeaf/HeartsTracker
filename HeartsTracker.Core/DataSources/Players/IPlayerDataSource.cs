@@ -9,7 +9,7 @@ namespace HeartsTracker.Core.DataSources.Players
 	public interface IPlayerDataSource
 	{
 		Task<Either<PlayerListResponse, ErrorResponse>> GetPlayers( );
-		Task GetPlayer( int playerId );
-		Task AddPlayer( CreatePlayerRequest player );
+		Task<Either<PlayerResponse, ErrorResponse>> GetPlayer( int playerId );
+		Task<Either<int, ErrorResponse>> AddPlayer( CreatePlayerRequest player );
 	}
 }

@@ -1,4 +1,6 @@
-﻿using HeartsTracker.Core.Views;
+﻿using System;
+using System.Threading.Tasks;
+using HeartsTracker.Core.Views;
 
 namespace HeartsTracker.Core.Presenters
 {
@@ -9,6 +11,23 @@ namespace HeartsTracker.Core.Presenters
 		protected internal BasePresenter( IBaseView view )
 		{
 			View = view;
+		}
+
+		public async Task<T> RequestAsync<T>( bool showLoading, Func<Task<T>> requestAsync )
+		{
+			if ( showLoading )
+			{
+				View.Loading.Show( );
+			}
+
+			T response = await requestAsync( );
+
+			if ( showLoading )
+			{
+				View.Loading.Hide( );
+			}
+
+			return response;
 		}
 	}
 

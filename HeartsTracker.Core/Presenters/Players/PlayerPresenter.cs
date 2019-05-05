@@ -1,6 +1,11 @@
 ﻿using System.Threading.Tasks;
+using HeartsTracker.Core.Classes;
 using HeartsTracker.Core.DataSources.Players;
+using HeartsTracker.Core.Extensions;
+using HeartsTracker.Core.Models;
+using HeartsTracker.Core.Models.Players;
 using HeartsTracker.Core.Views.Players;
+using HeartsTracker.Shared.Models.Player;
 
 namespace HeartsTracker.Core.Presenters.Players
 {
@@ -16,12 +21,12 @@ namespace HeartsTracker.Core.Presenters.Players
 
 		public async Task LoadPlayer( bool isRefreshing )
 		{
-			if ( !isRefreshing )
-			{
-				View.ShowLoadingOverlay( );
-			}
+			Either<PlayerResponse, ErrorResponse> response = await RequestAsync( !isRefreshing, ( ) => _playerRepository.GetPlayer( View.PlayerId ) );
 
-			await _playerRepository.GetPlayer( View.PlayerId );
+			response
+				.ConfigureNotFound( "Player not found" )
+				.OnSuccess( data => View.ShowPlayer( new PlayerViewModel( data ) ) )
+				.OnError( error => View.Error.Show( error ) );
 		}
 	}
 }
