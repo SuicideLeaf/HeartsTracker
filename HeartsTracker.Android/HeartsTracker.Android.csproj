@@ -53,6 +53,9 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseManagedDesignTimeResourceGenerator>False</AndroidUseManagedDesignTimeResourceGenerator>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Java.Interop" />
@@ -262,10 +265,6 @@
     <ProjectReference Include="..\HeartsTracker.Core\HeartsTracker.Core.csproj">
       <Project>{F40C505B-A0C5-422F-B552-0356CA6CF320}</Project>
       <Name>HeartsTracker.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HeartsTracker.Shared\HeartsTracker.Shared.csproj">
-      <Project>{1F7BA612-73C0-4724-B2AC-98EAA942C1DE}</Project>
-      <Name>HeartsTracker.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
