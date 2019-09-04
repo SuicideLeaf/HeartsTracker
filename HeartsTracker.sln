@@ -24,9 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Api.Tests", "HeartsTracker.Api.Tests\HeartsTracker.Api.Tests.csproj", "{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{A7C7F27C-D6BC-4F81-84E3-D2C3A8E3A005}"
-	ProjectSection(SolutionItems) = preProject
-		appcenter-pre-build.sh = appcenter-pre-build.sh
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
