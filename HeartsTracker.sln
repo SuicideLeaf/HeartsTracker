@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Dal", "HeartsTracker.Dal\HeartsTracker.Dal.csproj", "{A3D3D25E-EFAA-4572-9727-6662E6CE27C2}"
 EndProject
@@ -21,7 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Shared", "Hea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartsTracker.Tests", "HeartsTracker.Tests", "{55CE91C5-2247-47C4-B040-56F95EF4B7E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartsTracker.Api.Tests", "HeartsTracker.Api.Tests\HeartsTracker.Api.Tests.csproj", "{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartsTracker.Api.Tests", "HeartsTracker.Api.Tests\HeartsTracker.Api.Tests.csproj", "{73F97DC2-CC74-4EE5-86B8-6E4F5DCAB437}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{A7C7F27C-D6BC-4F81-84E3-D2C3A8E3A005}"
+	ProjectSection(SolutionItems) = preProject
+		appcenter-pre-build.sh = appcenter-pre-build.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
